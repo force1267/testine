@@ -1,0 +1,35 @@
+{
+  "name": "cds",
+  "version": "1.0.0",
+  "description": "study abroad and student consultancy institute",
+  "author": "woshi",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "axios": "^0.18.0",
+    "bcrypt": "^3.0.0",
+    "body-parser": "^1.18.3",
+    "cookie": "^0.3.1",
+    "cuid": "^2.1.4",
+    "express": "^4.15.3",
+    "js-cookie": "^2.2.0",
+    "jsonwebtoken": "^8.3.0",
+    "limax": "^1.6.0",
+    "mongoose": "^5.2.12",
+    "nuxt": "^1.0.0",
+    "rand-token": "^0.4.0",
+    "sanitize-html": "^1.18.5",
+    "vuetify": "^1.0.19"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "stylus": "^0.54.5",
+    "stylus-loader": "^3.0.1",
+    "nodemon": "^1.11.0"
+  }
+}
