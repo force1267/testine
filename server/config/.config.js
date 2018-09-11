@@ -9,7 +9,7 @@ module.exports = {
     MONGO_HOST: "localhost",
     MONGO_PORT: 27017,
     MONGO_DATABASE: "CDS",
-    MONGO_USER: "woshi",
+    MONGO_USER: "admin",
     MONGO_PASS: "Qwe%$[rty]*@;123",
     HOST: "127.0.0.1",
     PORT: 3000
