@@ -88,7 +88,7 @@
         fixed: false,
         items: [
           { icon: 'home', title: 'Site', to: '/' },
-          { icon: 'dashboard', title: 'Profile', to: '/cds-setup' },
+          { icon: 'security', title: 'Security Policy', to: '/cds-setup' },
           { icon: 'bubble_chart', title: 'Modules', to: '/modules' },
           { icon: 'new_releases', title: 'Posts', to: '/posts' }
         ],
