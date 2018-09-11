@@ -7,6 +7,7 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const adminSchema = new Schema({
+  _id: mongoose.Schema.Types.ObjectId,
   username: { 
     type: String, 
     lowercase: true, 
@@ -35,6 +36,11 @@ const adminSchema = new Schema({
     default: Date.now
   }
 })
+
+// helpers
+adminSchema.query.byEmail = function(email, cb) {
+  return this.where({ email: email })
+}
 
 let Admin = mongoose.model('Admin',adminSchema)
 module.exports = Admin

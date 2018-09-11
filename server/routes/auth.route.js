@@ -3,13 +3,13 @@
 
 module.exports = ({express, bcrypt, jwt, Admin, config}) => {
     const routes = express.Router()
-  
+    
     routes.post('/login', (req, res) => {
       const email = req.body.email
       const password = req.body.password
       if (!email || !password) return res.status(400).json({type: 'error', message: 'email and password fields are essential for authentication.'})
-      Admin.find({email: email}).exec((error, doc)=>{
-        if (error) return res.status(500).json({type: 'error', message: 'db error', error})
+      Admin.find().byEmail(email).exec(function(error, doc){
+        if (error) return res.status(500).json({type: 'error', message: 'Server Error', error})
         if (doc.length == 0) return res.status(403).json({type: 'error', message: 'User with provided email not found in database.'})
         bcrypt.compare(password, doc.password, (error, result) => {
           if (error) return res.status(500).json({type: 'error', message: 'bcrypt error', error})
