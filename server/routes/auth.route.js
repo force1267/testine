@@ -1,26 +1,26 @@
 
 // https://codeburst.io/nuxt-authentication-from-scratch-a7a024c7201b
 
-module.exports = ({express, bcrypt, jwt, Admin, config}) => {
+module.exports = ({express, jwt, Admin, config}) => {
     const routes = express.Router()
-    
+    const cph = require('../controllers/chp.controller')
+
     routes.post('/login', (req, res) => {
       const email = req.body.email
       const password = req.body.password
       if (!email || !password) return res.status(400).json({type: 'error', message: 'email and password fields are essential for authentication.'})
-      Admin.find().byEmail(email).exec(function(error, doc){
+      Admin.findOne({ email : email }, function(error, doc){
         if (error) return res.status(500).json({type: 'error', message: 'Server Error', error})
-        if (doc.length == 0) return res.status(403).json({type: 'error', message: 'User with provided email not found in database.'})
-        bcrypt.compare(password, doc.password, (error, result) => {
-          if (error) return res.status(500).json({type: 'error', message: 'bcrypt error', error})
-          if (result) {
-            res.json({
+        if (doc.length == 0) return res.status(403).json({type: 'error', message: 'User with provided email not found.'})
+        cph.compare(password, doc.password, (result) => {
+          if (result){
+              res.json({
               type: 'success',
               message: 'User logged in.',
               user: {id: doc._id, email: doc.email},
               token: jwt.sign({id: doc._id, email: doc.email}, config.JWT_SECRET, {expiresIn: config.JWT_TOKEN_TIME})
             })
-          } else return res.status(403).json({type: 'error', message: 'Password is incorrect.'})
+          } else return res.status(403).json({type: 'error', message: 'Password is incorrect.'}) 
         })
       })
     })

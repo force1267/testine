@@ -37,10 +37,5 @@ const adminSchema = new Schema({
   }
 })
 
-// helpers
-adminSchema.query.byEmail = function(email, cb) {
-  return this.where({ email: email })
-}
-
 let Admin = mongoose.model('Admin',adminSchema)
 module.exports = Admin

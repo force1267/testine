@@ -7,7 +7,6 @@ const bodyParser = require('body-parser')
 const auth = require('./routes/auth.route')
 const Admin = require('./model/schema/admin')
 const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = cfg.HOST || '127.0.0.1'
@@ -30,12 +29,10 @@ app.use(function(req, res, next) {
 })
 
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({
-        extended: false
-}))
+app.use(bodyParser.urlencoded({extended: false}))
 
 // app.use('/posts')
-app.use('/auth', auth({express, bcrypt, jwt, Admin, cfg}))
+app.use('/auth', auth({express, jwt, Admin, cfg}))
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
