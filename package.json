@@ -17,6 +17,7 @@
     "cuid": "^2.1.4",
     "express": "^4.15.3",
     "js-cookie": "^2.2.0",
+    "js-md4": "^0.3.2",
     "jsonwebtoken": "^8.3.0",
     "limax": "^1.6.0",
     "mongoose": "^5.2.12",
