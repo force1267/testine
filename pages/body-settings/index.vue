@@ -4,7 +4,7 @@
       <img src="/cds.svg" alt="cds" class="mb-5">
       <blockquote class="blockquote">
         &#8220;Trust, is the biggest bug in the world.&#8221;
-        active/deactive a module like telegram bot and etc..
+        we can setup body components here like vuetify sandbox and some UIs about site like adding html code
         <footer>
           <small>
             <em>&mdash;Wild Onion</em>

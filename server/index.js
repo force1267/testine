@@ -1,7 +1,7 @@
 
 const db = require('./model/db/db')
 const express = require('express')
-const cfg = require('./config/.config.js')
+const cfg = require('./config/.config')
 const bodyParser = require('body-parser')
 // const posts = require('./routes/posts.route')
 const auth = require('./routes/auth.route')

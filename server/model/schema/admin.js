@@ -31,7 +31,7 @@ const adminSchema = new Schema({
     type: String,
     default: ''
   },
-  joining: {
+  lastChange: {
     type: Date, 
     default: Date.now
   }
