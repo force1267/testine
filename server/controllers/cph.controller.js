@@ -4,7 +4,6 @@
 'use strict'
 
 const crypto = require('crypto')
-const cfg = require('../config/.config')
 
 // generating salt(secret)
 module.exports = function genRandomString(length){
@@ -20,9 +19,9 @@ module.exports = function sha512(password, secret){
 }
 
 // comapring the hash with given password
-module.exports = function compare(hash, pswd, cb){
+module.exports = function compare(hash, pswd, secret, cb){
     if (cb && typeof(cb) === "function") {
-          cb(hash === crypto.createHmac('sha512', cfg.SALT).update(pswd).digest('base64'))
+          cb(hash === crypto.createHmac('sha512', secret).update(pswd).digest('hex'))
     }
 }
 

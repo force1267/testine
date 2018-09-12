@@ -12,7 +12,7 @@ module.exports = ({express, jwt, Admin, config}) => {
       Admin.findOne({ email : email }, function(error, doc){
         if (error) return res.status(500).json({type: 'error', message: 'Server Error', error})
         if (doc.length == 0) return res.status(403).json({type: 'error', message: 'User with provided email not found.'})
-        cph.compare(password, doc.password, (result) => {
+        cph.compare(doc.password, password, doc.salt, (result) => { // @azizi.M : pswd
           if (result){
               res.json({
               type: 'success',

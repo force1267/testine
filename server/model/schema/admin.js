@@ -27,6 +27,7 @@ const adminSchema = new Schema({
     type: String,
     required : true,
   },
+  salt: {type: String},
   bio: {
     type: String,
     default: ''
