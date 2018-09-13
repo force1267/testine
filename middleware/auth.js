@@ -20,7 +20,7 @@ export default function ({store, redirect, route}) {
     if (!userIsLoggedIn && cdsSetupR || postsR || modulesR || bodySR || formsR) {
       return redirect('/login')
     }
-    if (userIsLoggedIn && urlRequiresNonAuth) {
+    if (userIsLoggedIn && urlRequiresNonAuth) { // issue: other route except cds-setup doesn't work
       return redirect('/cds-setup')
     }
     return Promise.resolve()
