@@ -12,4 +12,4 @@ $ npm install
 $ npm run dev
 ```
 
-For detailed explanation on how things work, start with index.js
+open ur postman then fill ur body with username and email finally hit the **http://localhost:4000/auth/login** on post method
