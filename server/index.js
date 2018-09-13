@@ -3,9 +3,10 @@ const db = require('./model/db/db')
 const express = require('express')
 const cfg = require('./config/.config')
 const bodyParser = require('body-parser')
+const cors = require('cors')
 // const posts = require('./routes/posts.route')
 const auth = require('./routes/auth.route')
-const Admin = require('./model/schema/admin')
+const User = require('./model/schema/user')
 const jwt = require('jsonwebtoken')
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
@@ -16,7 +17,8 @@ app.set('port', port)
 db.connect()
 
 // CORSE settings
-app.use(function(req, res, next) {
+app.use(cors()) // see https://github.com/expressjs/cors#readme
+/* app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Content-Length, x-access-token")
@@ -26,13 +28,13 @@ app.use(function(req, res, next) {
   else {
     next()
   }
-})
+}) */
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 // app.use('/posts')
-app.use('/auth', auth({express, jwt, Admin, cfg}))
+app.use('/auth', auth({express, jwt, User, cfg}))
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')

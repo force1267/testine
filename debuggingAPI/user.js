@@ -5,9 +5,10 @@
 
 //TODO: use CK-editor for admin bio!
 const mongoose = require('mongoose')
+const suid = require('rand-token').suid
+const token = suid(16)
 const Schema = mongoose.Schema
-const adminSchema = new Schema({
-  _id: mongoose.Schema.Types.ObjectId,
+const userSchema = new Schema({
   username: { 
     type: String, 
     lowercase: true, 
@@ -16,6 +17,12 @@ const adminSchema = new Schema({
     minlength: 3, 
     maxlength: 10,
     default: ''
+  },
+  activation_token: {
+    type: String,
+    default: function() {
+        return token
+    }
   },
   email: {
     type: String,
@@ -31,12 +38,8 @@ const adminSchema = new Schema({
   bio: {
     type: String,
     default: ''
-  },
-  lastChange: {
-    type: Date, 
-    default: Date.now
   }
-})
+}, {timestamps: true, collection: 'ownerinfo' })
 
-let Admin = mongoose.model('Admin',adminSchema)
-module.exports = Admin
+let User = mongoose.model('User',userSchema)
+module.exports = User

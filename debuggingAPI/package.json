@@ -1,0 +1,22 @@
+{
+  "name": "cds",
+  "version": "1.0.0",
+  "description": "study abroad and student consultancy institute",
+  "author": "woshi",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon index.js --watch server",
+    "start": "cross-env NODE_ENV=production node index.js"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.4",
+    "express": "^4.15.3",
+    "mongoose": "^5.2.12",
+    "rand-token": "^0.4.0"
+  },
+  "devDependencies": {
+    "cross-env": "^5.0.1",
+    "nodemon": "^1.11.0"
+  }
+}

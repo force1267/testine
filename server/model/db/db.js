@@ -1,6 +1,13 @@
 
+
+/* -------------------------------------------------------------------------
+* START MONGODB DATABASE:
+* "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath="c:\data\db"
+* "C:\Program Files\MongoDB\Server\4.0\bin\mongo.exe"
+*/
+
 const mongoose = require('mongoose')
-const cfg = require('../../config/.config.js')
+const cfg = require('../../config/.config')
 const chalk = require('chalk')
 var connected = chalk.bold.cyan
 var error = chalk.bold.yellow
