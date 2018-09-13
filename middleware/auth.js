@@ -2,7 +2,10 @@
 
 
 
-
+/* ------------------------------------------------------------------------
+* this is our middleware to check that we've already authenticated or not?!
+* it's a kinda guard for all routes in our entire application
+*/
 
 export default function ({store, redirect, route}) {
     
@@ -18,7 +21,7 @@ export default function ({store, redirect, route}) {
       return redirect('/login')
     }
     if (userIsLoggedIn && urlRequiresNonAuth) {
-      return redirect('/cds-setup')
+      if(formsR) return redirect('/forms')
     }
     return Promise.resolve()
   }

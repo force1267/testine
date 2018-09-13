@@ -18,7 +18,7 @@ const userSchema = new Schema({
     maxlength: 10,
     default: ''
   },
-  activation_token: {
+  activation_token: { // use for changing admin panel url! prevent finding the panel url
     type: String,
     default: function() {
         return token

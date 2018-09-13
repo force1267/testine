@@ -2,6 +2,7 @@
 const db = require('./model/db/db')
 const express = require('express')
 const cfg = require('./config/.config')
+const crypto = require('crypto')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 // const posts = require('./routes/posts.route')
@@ -34,7 +35,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 // app.use('/posts')
-app.use('/auth', auth({express, jwt, User, cfg}))
+app.use('/auth', auth({express, jwt, User, crypto}))
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
