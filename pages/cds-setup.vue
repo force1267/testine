@@ -8,7 +8,7 @@
       <v-card>
         <v-card-title class="headline">Study Abroad And Student Consultancy Institute</v-card-title>
         <v-card-text>
-          <p>load components about app security here</p>
+          <p>load components about app security here use vuex dispatch stuff to send req to server</p>
           <p v-if="user">Hello, {{user.username}}</p>
           <p v-else>Something went wrong with authentication system!</p>
           <div class="text-xs-right">

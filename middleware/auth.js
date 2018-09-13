@@ -21,7 +21,7 @@ export default function ({store, redirect, route}) {
       return redirect('/login')
     }
     if (userIsLoggedIn && urlRequiresNonAuth) {
-      if(formsR) return redirect('/forms')
+      return redirect('/cds-setup')
     }
     return Promise.resolve()
   }
