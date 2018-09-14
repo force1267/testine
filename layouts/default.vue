@@ -69,7 +69,7 @@
           <v-list-tile-action>
             <v-icon light>compare_arrows</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title>Switch drawer (click me)</v-list-tile-title>
+          <v-list-tile-title><span @click="logOut">Log Out</span></v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-navigation-drawer>
@@ -81,6 +81,16 @@
 
 <script>
   export default {
+    computed: {
+      user () { return this.$store.state.auth ? this.$store.state.auth.user : null } // get user from store
+    },
+    methods: {
+      logOut () {
+        this.$store.dispatch('auth/reset').then(() => {
+          this.$router.push('/')
+        })
+      }
+    },
     data() {
       return {
         clipped: false,

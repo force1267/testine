@@ -19,7 +19,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" flat @click="checkMe">Check Me</v-btn>
-          <v-btn color="primary" flat @click="logOut">Log Out</v-btn>
+          <!-- <v-btn color="primary" flat @click="logOut">Log Out</v-btn> -->
         </v-card-actions>
       </v-card>
     </v-flex>
@@ -38,19 +38,13 @@ export default {
    }
   },
   computed: {
-    user () { return this.$store.state.auth ? this.$store.state.auth.user : null }
+    user () { return this.$store.state.auth ? this.$store.state.auth.user : null } // get user from store
   },
   methods: {
     checkMe () {
       this.$store.dispatch('auth/fetch').then(result => {
         this.check_ME = result.data.message
         this.alert = {type: 'success', message: result.data.message}
-        // console.log('Check Me Result:', result.data.message) // log on the client side(browser)
-      })
-    },
-    logOut () {
-      this.$store.dispatch('auth/reset').then(() => {
-        this.$router.push('/')
       })
     }
   }

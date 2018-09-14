@@ -17,10 +17,10 @@ export default function ({store, redirect, route}) {
     const bodySR = /^\/body-settings(\/|$)/.test(route.fullPath)
     const urlRequiresNonAuth = /^\/login(\/|$)/.test(route.fullPath)
 
-    if (!userIsLoggedIn && cdsSetupR || postsR || modulesR || bodySR || formsR) {
+    if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || bodySR || formsR)) {
       return redirect('/login')
     }
-    if (userIsLoggedIn && urlRequiresNonAuth) { // issue: other route except cds-setup doesn't work
+    if (userIsLoggedIn && urlRequiresNonAuth) {
       return redirect('/cds-setup')
     }
     return Promise.resolve()

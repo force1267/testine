@@ -2,7 +2,7 @@
 // https://codeburst.io/nuxt-authentication-from-scratch-a7a024c7201b
 // https://ponyfoo.com/articles/json-web-tokens-vs-session-cookies
 // https://security.stackexchange.com/questions/16354/whats-the-advantage-of-using-pbkdf2-vs-sha256-to-generate-an-aes-encryption-key
-// TO HASH A PSWD: crypto.pbkdf2Sync(password, salt, 10000, 512, 'sha512').toString('hex')
+// TO HASH A PSWD: crypto.pbkdf2Sync(password, crypto.randomBytes(16).toString('hex'), 10000, 512, 'sha512').toString('hex')
 
 module.exports = ({express, jwt, User, crypto}) => {
     const routes = express.Router()
@@ -13,7 +13,7 @@ module.exports = ({express, jwt, User, crypto}) => {
       const password = req.body.password
       if (!email || !password) return res.status(400).json({type: 'error', message: 'email and password fields are essential for authentication.'})
       User.findOne({email: email}, function(error, doc){
-        if(error !== null) return res.status(500).json({type: 'error', message:'db error', err})
+        if(error !== null) return res.status(500).json({type: 'error', message:'Server error', err})
         if(doc === null) return res.status(402).json({type: 'error', message: 'User with provided email not found.'})
         if(doc.password === crypto.pbkdf2Sync(password, doc.salt, 10000, 512, 'sha512').toString('hex')) {
           res.json({
