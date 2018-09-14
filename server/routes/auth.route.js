@@ -33,7 +33,7 @@ module.exports = ({express, jwt, User, crypto}) => {
         if (error) return res.status(403).json({type: 'error', message: 'Provided token is invalid.', error})
         return res.json({
           type: 'success',
-          message: 'Provided token is valid.',
+          message: 'VALID',
           result // payload
         })
       })

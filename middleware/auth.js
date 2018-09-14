@@ -14,10 +14,11 @@ export default function ({store, redirect, route}) {
     const postsR = /^\/posts(\/|$)/.test(route.fullPath) // TODO: set auth middleware for each post!
     const modulesR = /^\/modules(\/|$)/.test(route.fullPath)
     const formsR = /^\/forms(\/|$)/.test(route.fullPath)
-    const bodySR = /^\/body-settings(\/|$)/.test(route.fullPath)
+    const sandboxR = /^\/sandbox(\/|$)/.test(route.fullPath)
+    const emailR = /^\/email(\/|$)/.test(route.fullPath)
     const urlRequiresNonAuth = /^\/login(\/|$)/.test(route.fullPath)
 
-    if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || bodySR || formsR)) {
+    if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || sandboxR || formsR || emailR)) {
       return redirect('/login')
     }
     if (userIsLoggedIn && urlRequiresNonAuth) {

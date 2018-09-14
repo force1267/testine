@@ -46,19 +46,19 @@
       </v-btn>
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn
+      <!-- <v-btn
         icon
         @click.stop="rightDrawer = !rightDrawer"
       >
         <v-icon>menu</v-icon>
-      </v-btn>
+      </v-btn> -->
     </v-toolbar>
     <v-content>
       <v-container>
         <nuxt />
       </v-container>
     </v-content>
-    <v-navigation-drawer
+    <!-- <v-navigation-drawer
       temporary
       :right="right"
       v-model="rightDrawer"
@@ -69,28 +69,18 @@
           <v-list-tile-action>
             <v-icon light>compare_arrows</v-icon>
           </v-list-tile-action>
-          <v-list-tile-title><span @click="logOut">Log Out</span></v-list-tile-title>
+          <v-list-tile-title>nothing!</v-list-tile-title>
         </v-list-tile>
       </v-list>
-    </v-navigation-drawer>
+    </v-navigation-drawer> -->
     <v-footer :fixed="fixed" app>
-      <small><em>&mdash;woshi with <3 &copy; 2018</em></small>
+      <small><em>&copy; 2018&mdash;CDS</em></small>
     </v-footer>
   </v-app>
 </template>
 
 <script>
   export default {
-    computed: {
-      user () { return this.$store.state.auth ? this.$store.state.auth.user : null } // get user from store
-    },
-    methods: {
-      logOut () {
-        this.$store.dispatch('auth/reset').then(() => {
-          this.$router.push('/')
-        })
-      }
-    },
     data() {
       return {
         clipped: false,
@@ -99,15 +89,16 @@
         items: [
           { icon: 'home', title: 'Site', to: '/' },
           { icon: 'table_chart', title: 'Forms', to: '/forms' },
-          { icon: 'settings_applications', title: 'Body Settings', to: '/body-settings' },
+          { icon: 'devices', title: 'Sandbox', to: '/sandbox' },
           { icon: 'security', title: 'Security Policy', to: '/cds-setup' },
           { icon: 'bubble_chart', title: 'Modules', to: '/modules' },
-          { icon: 'new_releases', title: 'Posts', to: '/posts' }
+          { icon: 'new_releases', title: 'Posts', to: '/posts' },
+          { icon: 'email', title: 'Email', to: '/email' }, 
         ],
         miniVariant: false,
         right: true,
         rightDrawer: false,
-        title: 'cds'
+        title: 'DASHBOARD'
       }
     }
   }

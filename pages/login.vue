@@ -1,7 +1,17 @@
 <template>
   <v-layout justify-center align-center>
-    <v-card class="elevation-10" style="flex: 0 1 400px">
-      <v-card-title class="headline">CDS</v-card-title>
+     <v-hover>
+        <v-card
+          slot-scope="{ hover }"
+          :class="`elevation-${hover ? 12 : 2}`"
+          class="mx-auto"
+          style="flex: 0 1 400px"
+        >
+        <v-img
+        :aspect-ratio="16/9"
+        src="/cds.svg"
+        ></v-img>
+      <!-- <v-card-title class="headline">CDS</v-card-title> -->
       <v-card-text>
         <v-form @submit.prevent="submit">
           <v-alert v-if="alert" :type="alert.type" value="true">{{alert.message}}</v-alert>
@@ -11,6 +21,7 @@
         </v-form>
       </v-card-text>
     </v-card>
+  </v-hover>
   </v-layout>
 </template>
 
