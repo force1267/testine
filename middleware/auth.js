@@ -15,10 +15,10 @@ export default function ({store, redirect, route}) {
     const commentsR = /^\/comment-control-center(\/|$)/.test(route.fullPath)
     const modulesR = /^\/modules(\/|$)/.test(route.fullPath)
     const sandboxR = /^\/sandbox(\/|$)/.test(route.fullPath)
+    const formsR = /^\/forms(\/|$)/.test(route.fullPath)
     const ucR = /^\/user-control-center(\/|$)/.test(route.fullPath)
     const ciR = /^\/consultancy-issues(\/|$)/.test(route.fullPath)
     const AQR = /^\/answer-question-control-center(\/|$)/.test(route.fullPath)
-    const formsR = /^\/forms(\/|$)/.test(route.fullPath)
     
     const urlRequiresNonAuth = /^\/login(\/|$)/.test(route.fullPath)
 

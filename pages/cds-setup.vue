@@ -96,7 +96,7 @@ export default {
   computed: {
     user () { 
       return this.$store.state.auth ? this.$store.state.auth.user : null 
-      console.log(this.$store.state.auth.user)
+      console.log(this.$store.state.auth.user.username)
     } // get user from store
   },
   created: function(){ // return the result of auth/me route on server side
