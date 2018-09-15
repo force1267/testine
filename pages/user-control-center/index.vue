@@ -1,0 +1,18 @@
+<template>
+  <v-layout>
+    <v-flex text-xs-center>
+      <img src="/cds.svg" alt="cds" class="mb-5">
+      <blockquote class="blockquote">
+        UNDER
+        <footer>
+          <small>
+            <em>&mdash;CONSTRUCTION</em>
+            <div>
+                use vuetify tab to fetch all user with their info in one single page
+            </div>
+          </small>
+        </footer>
+      </blockquote>
+    </v-flex>
+  </v-layout>
+</template>

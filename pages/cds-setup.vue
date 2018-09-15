@@ -1,11 +1,22 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <div class="text-xs-center">
-        <logo/>
+      <!-- <div class="text-xs-center">
       </div>
-    <v-spacer></v-spacer>
+    <v-spacer></v-spacer> -->
 
+    <v-card>
+        <v-img
+        src="/privacy.png"
+        aspect-ratio="2"
+        ></v-img>
+       <v-card-title>
+         <div> 
+           <h3 class="headline mb-0">HELLO {{ user.username }}</h3>
+             <div>Here you can use <span class="red--text">WHO AM I</span> button to check <br>your authentication policy!</div>
+           </div>
+       </v-card-title>
+      <v-card-actions>
   <!--================================== DIALOG FOR WHO AM I ==================================-->
           <v-dialog
             v-model="dialog"
@@ -26,12 +37,12 @@
                   Privacy Policy
                 </v-card-title>
                 <v-card-text v-if="user">
-                    <v-chip>
-                      <v-avatar class="teal">{{user.username}}</v-avatar>
-                       Admin of CDS institute with a  <v-chip label outline color="green">{{ checkMe }}</v-chip> authentication token.
-                    </v-chip>
+                     <v-icon class="green--text">verified_user</v-icon>Admin of CDS institute with a  <v-chip label outline color="green">{{ checkMe }}</v-chip> authentication token.
                 </v-card-text>
-                <v-card-text v-else>Admin of CDS institute with a  <v-chip label outline color="red">INVALID</v-chip> authentication token.</v-card-text>
+                
+                <v-card-text v-else>
+                  <v-icon class="red--text">block</v-icon>We don't know who you really are! an  <v-chip label outline color="red">INVALID</v-chip> authentication token.
+                </v-card-text>
 
                 <v-divider></v-divider>
 
@@ -46,19 +57,36 @@
                   </v-btn>
                 </v-card-actions>
               </v-card>
-          </v-dialog>
+            </v-dialog>
   <!--================================== END DIALOG FOR WHO AM I ==================================-->
     
           <v-btn color="error" flat @click="logOut">log me out!</v-btn>
+        </v-card-actions>
+     </v-card>
+
+    <v-card class="mt-3">
+        <v-img
+        src="/privacy.png"
+        aspect-ratio="2"
+        ></v-img>
+       <v-card-title>
+         <div> 
+           <h3 class="headline mb-0">UPDATE YOUR PERSONAL INFO</h3>
+             <div>Feel free and make some change to your existing infos.</div>
+          </div>
+       </v-card-title>
+        <v-card-actions>
+          <!-- updating form here.. -->
+        </v-card-actions>
+     </v-card>
     </v-flex>
   </v-layout>
 </template>
 
 <script>
-import Logo from '~/components/Logo'
 
 export default {
-  components: {Logo},
+  components: {},
   data(){
    return {
     dialog: false,
@@ -66,7 +94,10 @@ export default {
    }
   },
   computed: {
-    user () { return this.$store.state.auth ? this.$store.state.auth.user : null } // get user from store
+    user () { 
+      return this.$store.state.auth ? this.$store.state.auth.user : null 
+      console.log(this.$store.state.auth.user)
+    } // get user from store
   },
   created: function(){ // return the result of auth/me route on server side
       this.$store.dispatch('auth/fetch').then(result => {
