@@ -15,8 +15,8 @@
       <v-card-text>
         <v-form @submit.prevent="submit">
           <v-alert v-if="alert" :type="alert.type" value="true">{{alert.message}}</v-alert>
-          <v-text-field label="Email" v-model="email"></v-text-field>
-          <v-text-field label="Password" v-model="password" type="password"></v-text-field>
+          <v-text-field label="Email" v-model="email" :rules="emailRules" required></v-text-field>
+          <v-text-field label="Password" v-model="password" type="password" :rules="passwordRules"></v-text-field>
           <v-btn type="submit" :loading="loading" :disabled="loading">Log In</v-btn>
         </v-form>
       </v-card-text>
@@ -30,14 +30,18 @@ export default {
   layout: 'fullscreen',
   data () {
     return {
-      email: '',
-      password: '',
       alert: null,
-      loading: false
+      loading: false,
+      email: '',
+      emailRules: [
+        v => !!v || 'E-mail is required',
+        v => /.+@.+/.test(v) || 'E-mail must be valid'
+      ],
+      password: '',
+      passwordRules: [
+        v => !!v || 'Password is required',
+      ]
     }
-  },
-  mounted () { // Called after the instance has been mounted
-
   },
   methods: {
     submit () {
@@ -47,7 +51,7 @@ export default {
         email: this.email,
         password: this.password
       }).then(result => {
-        console.log('result', result)
+        // console.log('result', result)
         this.alert = {type: 'success', message: result.data.message}
         this.loading = false
         this.$router.push('/cds-setup')

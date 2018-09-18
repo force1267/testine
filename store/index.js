@@ -27,19 +27,6 @@ contains all your application level state and serves as the
 only one store for each application. A single state tree makes it 
 straightforward to locate a specific piece of state, and allows 
 us to easily take snapshots of the current app state for debugging purposes
-*/
-
-export const state = () => ({
-  sidebar: false
-})
-
-export const mutations = {
-  toggleSidebar (state) {
-    state.sidebar = !state.sidebar
-  }
-}
-
-/* 
 Actions are triggered with the store.dispatch method
 If the action nuxtServerInit is defined in the store, 
 Nuxt.js will call it with the context (only from the server-side).
@@ -50,12 +37,13 @@ To give the authenticated user to our store, we update our store/index.js to the
 */
 
 export const actions = {
-  nuxtServerInit ({dispatch}, context) {
+  nuxtServerInit ({dispatch}, context) { // nuxServerInit interact with server stuff in nuxt project so we can act like server here..
     return new Promise((resolve, reject) => {
-      const cookies = cookie.parse(context.req.headers.cookie || '') // parse the request headers cookie comming from server side(nuxtServerInit method communicate with server stuffs)
-      if (cookies.hasOwnProperty('x-access-token')) { // checking that token exists or not
-        setAuthToken(cookies['x-access-token']) // set authentication token
-        dispatch('auth/fetch') // fetching the user data(/me route on server side) from auth.js sotre; see the fetch method. when we want to call other actions from store itself we use dispatch!
+      // parse the cookie header and pass it into the axios config on server side 
+      const cookies = cookie.parse(context.req.headers.cookie || '')
+      if (cookies.hasOwnProperty('x-access-token')) {
+        setAuthToken(cookies['x-access-token'])
+        dispatch('auth/fetch')
           .then(result => {
             resolve(true)
           })
@@ -65,9 +53,14 @@ export const actions = {
             resolve(false)
           })
       } else {
-        resetAuthToken() // reset authentication token
+        resetAuthToken()
         resolve(false)
       }
     })
   }
 }
+
+/* Async functions can make use of the await expression. 
+This will pause the async function and wait for the Promise to resolve prior to moving on. 
+https://medium.com/@tkssharma/writing-neat-asynchronous-node-js-code-with-promises-async-await-fa8d8b0bcd7c
+*/

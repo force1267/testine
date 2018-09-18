@@ -7,6 +7,17 @@
       fixed
       app
     >
+
+      <v-img :aspect-ratio="16/9" :src="user.avatar">
+        <v-layout pa-2 column fill-height class="lightbox white--text">
+          <v-spacer></v-spacer>
+          <v-flex shrink>
+            <div class="subheading">{{user.username}}</div>
+            <div class="body-1">{{user.email}}</div>
+          </v-flex>
+        </v-layout>
+      </v-img>
+      
       <v-list>
         <v-list-tile
           router
@@ -81,6 +92,11 @@
 
 <script>
   export default {
+    computed: { // get user from store
+    user () { 
+      return this.$store.state.auth ? this.$store.state.auth.user : null
+     }
+    },
     data() {
       return {
         clipped: false,
@@ -88,7 +104,6 @@
         fixed: false,
         items: [
           { icon: 'home', title: 'Site', to: '/' },
-          { icon: 'table_chart', title: 'Forms', to: '/forms' },
           { icon: 'devices', title: 'Sandbox', to: '/sandbox' },
           { icon: 'security', title: 'Security Policy', to: '/cds-setup' },
           { icon: 'bubble_chart', title: 'Modules', to: '/modules' },
@@ -96,7 +111,10 @@
           { icon: 'comment', title: 'Comment Control Center', to: '/comment-control-center' },
           { icon: 'question_answer', title: 'Answer Question Control Center', to: '/answer-question-control-center' },
           { icon: 'assignment_ind', title: 'User Control Center', to: '/user-control-center' },
-          { icon: 'help', title: 'Consultancy Issues', to: '/consultancy-issues' },
+          { icon: 'fingerprint', title: 'Certificate Control Center', to: '/certificate-control-center' },
+          { icon: 'language', title: 'Abroad Control Center', to: '/abroad-control-center' },
+          { icon: 'live_help', title: 'Consultancy Services', to: '/consultancy-services' },
+          { icon: 'store', title: 'Cando Services', to: '/cando-services' }
         ],
         miniVariant: false,
         right: true,

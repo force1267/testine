@@ -6,17 +6,18 @@ module.exports = ({express, User}) => {
     const salt = crypto.randomBytes(16).toString('hex')
 
   // API route to add new admin in database 
-    routes.post('/login', (req, res) => {
+    routes.post('/signup', (req, res) => {
       User = new User({
         username: req.body.username,
         email: req.body.email,
-        bio: "this is my bio!",
-        password: crypto.pbkdf2Sync('@zizi.M123', salt, 10000, 512, 'sha512').toString('hex'),
+        lastseendate: Date.now(),
+        bio: "study abroad and student consultancy",
+        password: crypto.pbkdf2Sync('Qwe%$[rty]*@;123', salt, 10000, 512, 'sha512').toString('hex'),
         salt: salt
       })
     
       User.save(function (err) {
-          res.json({type: 'error', message: 'Cant Save', err})
+          res.json({type: 'error', message: 'Cant Save', err}) // on success save it'll return err = null
       })
     })
 

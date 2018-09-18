@@ -8,9 +8,6 @@
           <small>
             <em>&mdash;CONSTRUCTION</em>
             <div>
-              we can setup body components here like some UIs activity about site like adding html code feature using ckeditor<br>
-              and vuetify sanbox with logo changing for whole site and login vue footer and header settings<br>
-              https://vuetifyjs.com/en/directives/ripples#example-custom-ripple
             </div>
           </small>
         </footer>

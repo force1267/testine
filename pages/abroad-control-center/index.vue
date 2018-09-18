@@ -7,9 +7,8 @@
         <footer>
           <small>
             <em>&mdash;CONSTRUCTION</em>
-            <div>evaluate form - 
-            reserving consultancy time - 
-            online consultancy sessions(telegram bot or other stuffs, portal control center)
+            <div>
+            canada, australia, new zealand, abroad in other countries, migration and language courses(see cds.org.ir its related tab) 
             </div>
           </small>
         </footer>

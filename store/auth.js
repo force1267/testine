@@ -1,8 +1,8 @@
 
 
-/* ----------------------------
-   https://vuex.vuejs.org/guide
-   ----------------------------
+/* -----------------------------------------
+   https://vuex.vuejs.org/guide/modules.html
+   -----------------------------------------
 We have to store the auth token somewhere at the client, and this will be cookies. 
 We can’t use local storage, because the browser does not send them in request, 
 it’s not visible on server side from the nuxt server. Also we’ll push the token into 
@@ -19,14 +19,23 @@ but dispatch an action to the store instead
 
 import api from '~/api'
 import {setAuthToken, resetAuthToken} from '~/utils/auth'
-import cookies from 'js-cookie' // to parse cookie on client side
+import cookies from 'js-cookie' // to parse and set cookie on client side
 
-export const state = () => ({ // here we are setting up a state called user to null at first in our entire components
+/* 
+* we defined two state one for user data after successfull login and the other for auth/me route to check the authentication policy
+* it would be an override process if we define one state called user cause two routes will use one state for their fetched data and
+* we'll lose the first one data which is user state; cause it use computed method to load the data in component and me state use created method.
+* set up data observation, compile the template, mount the instance to the DOM, and update the DOM when data changes!
+*/
+
+export const state = () => ({ // here we are setting up a states called user and me to null at first in our entire components
   user: null
 })
 
 /* ----------------------------------------------------------------------------------
 *  The only way to actually change state in a Vuex store is by committing a mutation.
+*  due to using a single state tree, divide ur store into modules(use below link)
+*  https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
 */
 export const mutations = {
   set_user (store, data) { // setting up our user state to received data from server
@@ -37,19 +46,43 @@ export const mutations = {
   }
 }
 
-/* --------------------------------------------------------
+/* -----------------------------------------------------------------------
 * Instead of mutating the state, actions commit mutations.
 * Actions can contain arbitrary asynchronous operations.
+* The fetch method is used to fill the store before rendering the page,
+* it's like the asyncData method except it doesn't set the component data
 */
 export const actions = {
   fetch ({commit}) {
     return api.auth.me() // all client side apis are in api folder; see index.js inside api folder
       .then(response => {
-        commit('set_user', response.data.result) // commit(change/set) the user in sotre to fetched data
+        commit('set_user', response.data.user) // set the user state in sotre to fetched data from auth/me route
         return response
       })
       .catch(error => {
-        commit('reset_user') // if there was any error then reset the user data
+        commit('reset_user') // if there was any error then reset the user state
+        return error
+      })
+  },
+  update({commit}, data){ // update action to edit admin info
+    return api.auth.update(data) // call the update api
+      .then(response => {
+        commit('set_user', response.data.updatedData) // commit the current user to updated info; now user state has a fresh info!
+        return response
+      })
+      .catch(error=>{
+        commit('reset_user')
+        return error
+      })
+  },
+  upload({commit}, data){ // upload action to update avatar
+    return api.auth.upload(data)
+      .then(response => {
+        commit('set_user', response.data.updatedData)
+        return response
+      })
+      .catch(error=>{
+        commit('reset_user')
         return error
       })
   },

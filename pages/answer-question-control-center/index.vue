@@ -8,7 +8,7 @@
           <small>
             <em>&mdash;CONSTRUCTION</em>
             <div>
-            about us - contact us messages with email to those messages - map - FAQ
+            about us - contact us messages with email to those messages(users opinion) - FAQ
             </div>
           </small>
         </footer>

@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/auth', auth({express, User}))
 
-app.listen(4000, 'localhost')
+app.listen(5430, 'localhost')
 console.log('Server listening ...')
 
 mongoose.connect('mongodb://' + cfg.MONGO_HOST + ':' + cfg.MONGO_PORT + '/' + cfg.MONGO_DATABASE, {

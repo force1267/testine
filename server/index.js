@@ -1,10 +1,11 @@
 
+//TODO: add rate-limiter
 const db = require('./model/db/db')
 const express = require('express')
 const cfg = require('./config/.config')
 const crypto = require('crypto')
 const bodyParser = require('body-parser')
-const cors = require('cors')
+// const cors = require('cors')
 // const posts = require('./routes/posts.route')
 const auth = require('./routes/auth.route')
 const User = require('./model/schema/user')
@@ -16,21 +17,20 @@ const port = cfg.PORT || 3000
 
 app.set('port', port)
 db.connect()
-
-// CORSE settings
-app.use(cors()) // see https://github.com/expressjs/cors#readme
-/* app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
+  
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
   res.header('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS')
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Content-Length, x-access-token")
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Content-Length, x-access-token')
   if (req.method === 'OPTIONS') {
     res.sendStatus(200)
   }
   else {
     next()
   }
-}) */
+})
 
+// app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
