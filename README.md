@@ -19,15 +19,15 @@ $ npm start
 $ npm run generate
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
-to import data for a collection in robo3t:
+## To Import Data For A Collection In robo3t:
 ```
-Right click on collection.
-Select 'insert Document'.
-enter image description here
-Paste your json data
-Click validate.
-Click save.
+$ Right click on collection
+$ Select 'insert Document'
+$ Paste your json data
+$ Click validate
+$ Click save
+
+OR IN COMMAND LINE:
+
+$ mongoimport --jsonArray -d <DataBase Name> -c <Collection Name> --file /path/to/my/db.json
 ```
-or you can use below command
-## mongoimport --jsonArray -d <DataBase Name> -c <Collection Name> --file /path/to/my/db.json
