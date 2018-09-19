@@ -15,7 +15,7 @@ export default function ({store, redirect, route}) {
     const commentsR = /^\/comment-control-center(\/|$)/.test(route.fullPath)
     const modulesR = /^\/modules(\/|$)/.test(route.fullPath)
     const sandboxR = /^\/sandbox(\/|$)/.test(route.fullPath)
-    const ucR = /^\/user-control-center(\/|$)/.test(route.fullPath)
+    const scR = /^\/student-control-center(\/|$)/.test(route.fullPath)
     const ciR = /^\/consultancy-services(\/|$)/.test(route.fullPath)
     const AQR = /^\/answer-question-control-center(\/|$)/.test(route.fullPath)
     const ABR = /^\/abroad-control-center(\/|$)/.test(route.fullPath)
@@ -24,7 +24,7 @@ export default function ({store, redirect, route}) {
     
     const urlRequiresNonAuth = /^\/login(\/|$)/.test(route.fullPath)
 
-    if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || sandboxR || AQR || commentsR || ucR || ciR || ABR || csR || certsR)) {
+    if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || sandboxR || AQR || commentsR || scR || ciR || ABR || csR || certsR)) {
       return redirect('/login')
     }
     if (userIsLoggedIn && urlRequiresNonAuth) {

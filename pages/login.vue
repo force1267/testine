@@ -51,7 +51,6 @@ export default {
         email: this.email,
         password: this.password
       }).then(result => {
-        // console.log('result', result)
         this.alert = {type: 'success', message: result.data.message}
         this.loading = false
         this.$router.push('/cds-setup')

@@ -110,7 +110,7 @@
           { icon: 'import_contacts', title: 'Magazine Control Center', to: '/magazine-control-center' },
           { icon: 'comment', title: 'Comment Control Center', to: '/comment-control-center' },
           { icon: 'question_answer', title: 'Answer Question Control Center', to: '/answer-question-control-center' },
-          { icon: 'assignment_ind', title: 'User Control Center', to: '/user-control-center' },
+          { icon: 'assignment_ind', title: 'Student Control Center', to: '/student-control-center' },
           { icon: 'fingerprint', title: 'Certificate Control Center', to: '/certificate-control-center' },
           { icon: 'language', title: 'Abroad Control Center', to: '/abroad-control-center' },
           { icon: 'live_help', title: 'Consultancy Services', to: '/consultancy-services' },

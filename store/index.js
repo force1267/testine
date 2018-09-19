@@ -43,7 +43,7 @@ export const actions = {
       const cookies = cookie.parse(context.req.headers.cookie || '')
       if (cookies.hasOwnProperty('x-access-token')) {
         setAuthToken(cookies['x-access-token'])
-        dispatch('auth/fetch')
+        dispatch('auth/fetch') // dispatch the fetch action to check the token
           .then(result => {
             resolve(true)
           })
@@ -63,4 +63,5 @@ export const actions = {
 /* Async functions can make use of the await expression. 
 This will pause the async function and wait for the Promise to resolve prior to moving on. 
 https://medium.com/@tkssharma/writing-neat-asynchronous-node-js-code-with-promises-async-await-fa8d8b0bcd7c
+https://zeit.co/blog/async-and-await
 */

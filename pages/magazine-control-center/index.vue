@@ -6,7 +6,7 @@
         UNDER
         <footer>
           <small>
-            <em>&mdash;CONSTRUCTION</em>
+            <em>&mdash;CONSTRUCTION - also use live search for all posts</em>
           </small>
         </footer>
       </blockquote>

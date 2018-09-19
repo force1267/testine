@@ -12,7 +12,7 @@
         v-bind:src="imagePreview" v-show="showPreview"
         ></v-img>
        <v-card-title>
-           <h3 class="headline mb-0">{{dynamicText}}</h3>
+           <h3 class="headline mb-0"><v-icon class="red--text">format_quote</v-icon>{{guide}}</h3>
        </v-card-title>
        <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>
         <v-card-actions>
@@ -30,17 +30,17 @@
     data(){
       return {
         file: '',
+        guide: 'CHANGE YOUR AVATAR HERE',
         shouldUpload: false, 
         alert: null,
         showPreview: false,
-        imagePreview: '',
-        dynamicText: ''
+        imagePreview: ''
       }
     },
     methods: {
      submitFile(){
         let formData = new FormData()
-        this.dynamicText = ''
+        this.guide = 'CHANGE YOUR AVATAR HERE'
         formData.append('file', this.file) // append the selected file to formData object
         formData.append('userID', this.userID) // append the userID to formData object to use findByIdAndUpdate
         // for (var p of formData) {
@@ -67,7 +67,7 @@
           Set the local file variable to what the user has selected.
         */
         this.file = this.$refs.file.files[0]
-        this.dynamicText = 'NOW HIT THE UPLOAD BUTTON!'
+        this.guide = 'NOW HIT THE UPLOAD BUTTON!'
         this.shouldUpload = true
 
         /*

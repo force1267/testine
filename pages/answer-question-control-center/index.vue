@@ -8,7 +8,7 @@
           <small>
             <em>&mdash;CONSTRUCTION</em>
             <div>
-            about us - contact us messages with email to those messages(users opinion) - FAQ
+            about us and contact us info and its messages with email sending feature to those messages(users opinion) - FAQ => use ckeditor
             </div>
           </small>
         </footer>

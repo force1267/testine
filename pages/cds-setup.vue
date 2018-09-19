@@ -1,9 +1,7 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6>
-      <!-- <div class="text-xs-center">
-      </div>
-    <v-spacer></v-spacer> -->
+
 <!-- ========================first-card-to-check-authorized-admin======================== -->
    <v-hover>
     <v-card 
@@ -25,7 +23,8 @@
       <v-card-actions>
           <v-dialog
             v-model="dialog"
-            width="625"
+            width="600"
+            :fullscreen="$vuetify.breakpoint.xsOnly"
           >
             <v-btn
               slot="activator"
@@ -45,7 +44,6 @@
                 <v-card-text v-if="user">
                      <v-icon class="green--text">verified_user</v-icon>Admin of CDS institute with a  <v-chip label outline color="green">{{ checkMe }}</v-chip> authentication token
                      since <timeago :datetime="createdTime" :auto-update="60" class="red--text"></timeago><br>
-                    bio: <v-chip outline color="secondary">{{user.bio}}</v-chip>
                 </v-card-text>
                 
                 <v-card-text v-else>
@@ -68,8 +66,8 @@
               </v-card>
             </v-dialog>
           <v-btn color="error" flat @click="logOut" class="ml-2">log me out!</v-btn>
-          <small class="ml-1"><v-icon class="red--text">touch_app</v-icon><timeago :datetime="lastseenTime" :auto-update="60"></timeago></small>
-          <small class="ml-1"><v-icon class="red--text">update</v-icon><timeago :datetime="updatedTime" :auto-update="60"></timeago></small>
+          <small class="ml-1"><em><v-icon class="red--text">touch_app</v-icon><timeago :datetime="lastseenTime" :auto-update="60"></timeago></em></small>
+          <small class="ml-1"><em><v-icon class="red--text">update</v-icon><timeago :datetime="updatedTime" :auto-update="60"></timeago></em></small>
         </v-card-actions>
     </v-card>
    </v-hover> <!-- ========================end-first-card======================== -->
@@ -93,7 +91,8 @@
              <div><v-icon class="red--text">format_quote</v-icon> Feel free and make some changes to your info.<br> 
                   Password must contain at least one lowercase alphabetical character,<br>
                   one uppercase alphabetical character, one numeric character,<br>
-                  one special character and must be eight characters or longer.
+                  one special character and must be eight characters or longer.<br>
+              bio: <v-chip outline color="secondary"></v-chip>
              </div>
           </div>
        </v-card-title>
@@ -176,7 +175,7 @@ export default {
     bio: '',
     bioRules: [
       v => !!v || 'Bio is required',
-      v => (v && v.length <= 100) || 'Bio must be less than 100 characters'
+      v => (v && v.length <= 150) || 'Bio must be less than 150 characters'
     ],
     username: '',
     usernameRules: [
