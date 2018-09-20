@@ -29,5 +29,7 @@ $ Click save
 
 OR IN COMMAND LINE:
 
-$ mongoimport --jsonArray -d <DataBase Name> -c <Collection Name> --file /path/to/my/db.json
+$ mongoimport --jsonArray -d <DataBase Name> -c <Collection Name> --file /path/to/my/document.json
+
+OR USE debuggingAPI folder FOR INSERT OPS
 ```

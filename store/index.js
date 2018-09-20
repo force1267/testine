@@ -33,7 +33,7 @@ Nuxt.js will call it with the context (only from the server-side).
 It's useful when we have some data on the server we want to give directly to the client-side.
 For example, let's say we have sessions on the server-side 
 and we can access the connected user through req.session.user. 
-To give the authenticated user to our store, we update our store/index.js to the following
+To give the authenticated user to our store, we update our store/index.js to the following:
 */
 
 export const actions = {
@@ -43,7 +43,7 @@ export const actions = {
       const cookies = cookie.parse(context.req.headers.cookie || '')
       if (cookies.hasOwnProperty('x-access-token')) {
         setAuthToken(cookies['x-access-token'])
-        dispatch('auth/fetch') // dispatch the fetch action to check the token
+        dispatch('auth/fetch') // dispatch the fetch action to check the token and fill the user state before rendering the page
           .then(result => {
             resolve(true)
           })

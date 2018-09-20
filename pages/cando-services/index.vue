@@ -8,6 +8,7 @@
           <small>
             <em>&mdash;CONSTRUCTION</em>
             <div>
+              setup head() for seo
             </div>
           </small>
         </footer>

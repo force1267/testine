@@ -8,7 +8,10 @@
 */
 
 export default function ({store, redirect, route}) {
-    
+    // inside nuxtServerInit we check for token inside client cookie on server side 
+    // and if we have one which contain that token then we set it on all axios headers on client side 
+    // and dispatch the fetch action to fill the user state before rendering the page so if everything
+    // was ok then we have store.state.auth.user in our entire application!
     const userIsLoggedIn = !!store.state.auth.user
     const cdsSetupR = /^\/cds-setup(\/|$)/.test(route.fullPath)
     const postsR = /^\/magazine-control-center(\/|$)/.test(route.fullPath) // TODO: set auth middleware for each post!

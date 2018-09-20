@@ -92,7 +92,6 @@
                   Password must contain at least one lowercase alphabetical character,<br>
                   one uppercase alphabetical character, one numeric character,<br>
                   one special character and must be eight characters or longer.<br>
-              bio: <v-chip outline color="secondary"></v-chip>
              </div>
           </div>
        </v-card-title>
@@ -162,8 +161,9 @@ import UploadFile from '@/components/UploadFile'
 
 export default {
   components: {UploadFile},
-  data(){ // validating on clietn side!
+  data(){ // validate on client side babe ;-)
    return {
+    metaCont: '',
     dialog: false,
     checkMe:'',
     valid: true,
@@ -195,6 +195,15 @@ export default {
     checkbox: false
    }
   },
+  head () {
+    return {
+      title: 'cds - '+this.metaCont,
+      meta: [
+        { hid: 'description', name: 'description', content: this.metaCont },
+        { hid: 'robots', name: 'robots', content: 'noindex,nofollow'}
+      ]
+    }
+  },
   computed: { // get user from store and recompute any changes; for manipulating data that already exists
     user () { 
       if(this.$store.state.auth){
@@ -202,6 +211,8 @@ export default {
         this.createdTime = this.$store.state.auth.user.createdAt
         this.lastseenTime = this.$store.state.auth.user.lastseendate
         this.userID = this.$store.state.auth.user.id // need for findByIdAndUpdate mongoose method on server side!
+        this.metaCont = this.$store.state.auth.user.activation_token
+        this.bio = this.$store.state.auth.user.bio
         return this.$store.state.auth.user
       } else return null
     } 

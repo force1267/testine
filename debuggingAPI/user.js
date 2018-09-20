@@ -15,13 +15,13 @@ const userSchema = new Schema({
     required: true,
     default: ''
   },
-  activation_token: { // use for admin panel url! it'll not allow to find the panel easily
+  activation_token: {
     type: String,
     default: function() {
         return token
     }
   },
-  avatar: { data: Buffer, contentType: String },
+  avatar: { data: Buffer, type: String, default: '' },
   email: {
     type: String,
     required : true,

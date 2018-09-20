@@ -9,6 +9,7 @@
             <em>&mdash;CONSTRUCTION</em>
             <div>
             about us and contact us info and its messages with email sending feature to those messages(users opinion) - FAQ => use ckeditor
+            setup head() for seo
             </div>
           </small>
         </footer>

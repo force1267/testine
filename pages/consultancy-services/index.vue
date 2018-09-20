@@ -14,6 +14,7 @@
             we have document in which we store all froms in there
             then we'll use them in their related pages with their own _id
             we use index.vue to fetch all of theme! and admin can active/deactive them
+            setup head() for seo
             </div>
           </small>
         </footer>

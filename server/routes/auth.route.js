@@ -36,7 +36,7 @@ module.exports = ({express, jwt, User, crypto}) => {
                 res.json({ // we can't set the header after they are sent to the client so we put the res.json inside the update process!
                   type: 'success',
                   message: 'User logged in.',
-                  user: {id: doc._id, email: doc.email, username: doc.username, avatar: doc.avatar, bio: doc.bio, createdAt: doc.createdAt, updatedAt: doc.updatedAt, lastseendate: doc.lastseendate},
+                  user: {id: doc._id, email: doc.email, username: doc.username, avatar: doc.avatar, bio: doc.bio, createdAt: doc.createdAt, updatedAt: doc.updatedAt, lastseendate: doc.lastseendate, activation_token: doc.activation_token},
                   token: jwt.sign({id: doc._id}, cfg.JWT_SECRET, {expiresIn: cfg.JWT_TOKEN_TIME})
                 })
             })
@@ -63,6 +63,7 @@ module.exports = ({express, jwt, User, crypto}) => {
                 return res.status(201).json({
                     message: 'VALID',
                     user:{
+                      activation_token: model.activation_token,
                       id: model._id,
                       username: model.username,
                       email: model.email,
@@ -96,6 +97,7 @@ module.exports = ({express, jwt, User, crypto}) => {
             return res.status(201).json({
                 message: 'credentials updated successfully!',
                 updatedData:{
+                  activation_token: model.activation_token,
                   id: model._id,
                   username: model.username,
                   email: model.email,
@@ -118,7 +120,7 @@ module.exports = ({express, jwt, User, crypto}) => {
 // API route to upload and update avatar(i think we need graphql just not to send the whole user info again)
     routes.post('/upload', upload.single('file'), (req,res)=>{
     // we are using multer to handle incomming files in req from client
-    // we are updating the user avatar and sending the entire documnet again(cause of sore structure)
+    // we are updating the user avatar and sending the entire modeldocumnet again(cause of sore structure)
     // along with the successfull message.
       User.findByIdAndUpdate(req.body.userID, {'avatar': req.file.filename}, {new: true}, 
       function(err, model){
@@ -126,6 +128,7 @@ module.exports = ({express, jwt, User, crypto}) => {
           return res.status(201).json({
               message: 'uploaded successfully!',
               updatedData:{
+                activation_token: model.activation_token,
                 id: model._id,
                 username: model.username,
                 email: model.email,

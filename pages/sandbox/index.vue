@@ -11,6 +11,7 @@
               we can setup body components here like some UIs activity about site like adding html code feature using ckeditor<br>
               and vuetify sanbox with logo changing for whole site and login vue footer and header settings we build careers section<br>
               https://vuetifyjs.com/en/directives/ripples#example-custom-ripple
+              setup head() for seo
             </div>
           </small>
         </footer>

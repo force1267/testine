@@ -26,6 +26,8 @@
 </template>
 
 <script>
+const suid = require('rand-token').suid
+const token = suid(16)
 export default {
   layout: 'fullscreen',
   data () {
@@ -40,6 +42,15 @@ export default {
       password: '',
       passwordRules: [
         v => !!v || 'Password is required',
+      ]
+    }
+  },
+  head () {
+    return {
+      title: 'cds - '+token,
+      meta: [
+        { hid: 'description', name: 'description', content: token },
+        { hid: 'robots', name: 'robots', content: 'noindex,nofollow'}
       ]
     }
   },

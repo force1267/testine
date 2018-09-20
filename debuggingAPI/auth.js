@@ -11,13 +11,15 @@ module.exports = ({express, User}) => {
         username: req.body.username,
         email: req.body.email,
         lastseendate: Date.now(),
-        bio: "study abroad and student consultancy",
-        password: crypto.pbkdf2Sync('Qwe%$[rty]*@;123', salt, 10000, 512, 'sha512').toString('hex'),
+        avatar: "7929c39269a027368daea67eb4b65a241537285871986.jpg",
+        bio: "Assistant Professor of the Department of English Language and Literature, Univeristy of Mazandaran, Babolsar, Iran",
+        password: crypto.pbkdf2Sync('@zizi.M123', salt, 10000, 512, 'sha512').toString('hex'),
         salt: salt
       })
     
       User.save(function (err) {
-          res.json({type: 'error', message: 'Cant Save', err}) // on success save it'll return err = null
+          if(err!==null) res.json({type:'error', message: 'cant save!'})
+          res.json({type: 'success', message: 'Saved!', err}) // on success save it'll return err = null
       })
     })
 
