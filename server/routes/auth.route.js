@@ -36,7 +36,7 @@ module.exports = ({express, jwt, User, crypto}) => {
                 res.json({ // we can't set the header after they are sent to the client so we put the res.json inside the update process!
                   type: 'success',
                   message: 'User logged in.',
-                  user: {id: doc._id, email: doc.email, username: doc.username, avatar: doc.avatar, bio: doc.bio, createdAt: doc.createdAt, updatedAt: doc.updatedAt, lastseendate: doc.lastseendate, activation_token: doc.activation_token},
+                  user: {id: doc._id, isAdmin: doc.isAdmin, email: doc.email, username: doc.username, avatar: doc.avatar, bio: doc.bio, createdAt: doc.createdAt, updatedAt: doc.updatedAt, lastseendate: doc.lastseendate, activation_token: doc.activation_token},
                   token: jwt.sign({id: doc._id}, cfg.JWT_SECRET, {expiresIn: cfg.JWT_TOKEN_TIME})
                 })
             })
@@ -56,13 +56,15 @@ module.exports = ({express, jwt, User, crypto}) => {
         // cause of this issue it'll override the prev content of our user state object!
         // we can use modules feature to handle multiple states in our store.
         // we could use this feature for this route but know this that every module is for a specific route CRUD
-        // and we are using auth.js for all auth routes CRUD which is belong to our user state!
+        // and we are using auth.js for all auth routes CRUD which is belong to our user state! 
+        // and for something like posts state we have to use posts module in our store.
         User.findOne({_id: result.id}, 
           function(err, model) {
               if(!err){
                 return res.status(201).json({
                     message: 'VALID',
                     user:{
+                      isAdmin: model.isAdmin,
                       activation_token: model.activation_token,
                       id: model._id,
                       username: model.username,
@@ -97,6 +99,7 @@ module.exports = ({express, jwt, User, crypto}) => {
             return res.status(201).json({
                 message: 'credentials updated successfully!',
                 updatedData:{
+                  isAdmin: model.isAdmin,
                   activation_token: model.activation_token,
                   id: model._id,
                   username: model.username,
@@ -128,6 +131,7 @@ module.exports = ({express, jwt, User, crypto}) => {
           return res.status(201).json({
               message: 'uploaded successfully!',
               updatedData:{
+                isAdmin: model.isAdmin,
                 activation_token: model.activation_token,
                 id: model._id,
                 username: model.username,

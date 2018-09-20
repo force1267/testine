@@ -21,6 +21,7 @@ const userSchema = new Schema({
         return token
     }
   },
+  isAdmin: {type: Boolean, default: false},
   avatar: { data: Buffer, type: String, default: '' },
   email: {
     type: String,

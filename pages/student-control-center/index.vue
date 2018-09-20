@@ -12,6 +12,7 @@
                 this is the control center of registred user like ezapply site
                 so we need a login/registration system for our students
                 use live search and admin can add new student
+                create student reg sys using isAdmin flag in ownerinfo document
                 setup head() for seo => https://gist.github.com/lancejpollard/1978404
             </div>
           </small>

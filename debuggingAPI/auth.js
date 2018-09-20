@@ -9,7 +9,7 @@ module.exports = ({express, User}) => {
     routes.post('/signup', (req, res) => {
       User = new User({
         username: req.body.username,
-        email: req.body.email,
+        email: "mazizijam@umz.ac.ir",
         lastseendate: Date.now(),
         avatar: "7929c39269a027368daea67eb4b65a241537285871986.jpg",
         bio: "Assistant Professor of the Department of English Language and Literature, Univeristy of Mazandaran, Babolsar, Iran",
