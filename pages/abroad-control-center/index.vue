@@ -8,8 +8,8 @@
           <small>
             <em>&mdash;CONSTRUCTION</em>
             <div>
-            canada, australia, new zealand, abroad in other countries, migration and language courses(see cds.org.ir its related tab) 
-            setup head() for seo
+            canada, australia, new zealand, abroad in other countries, visa and articles, migration and language courses(see cds.org.ir its related tab) 
+            setup head() for seo => https://gist.github.com/lancejpollard/1978404
             </div>
           </small>
         </footer>

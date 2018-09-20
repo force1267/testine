@@ -14,7 +14,7 @@ export default function ({store, redirect, route}) {
     // was ok then we have store.state.auth.user in our entire application!
     const userIsLoggedIn = !!store.state.auth.user
     const cdsSetupR = /^\/cds-setup(\/|$)/.test(route.fullPath)
-    const postsR = /^\/magazine-control-center(\/|$)/.test(route.fullPath) // TODO: set auth middleware for each post!
+    const postsR = /^\/magazine-control-center(\/|$)/.test(route.fullPath) // TODO: set auth middleware for post id!
     const commentsR = /^\/comment-control-center(\/|$)/.test(route.fullPath)
     const modulesR = /^\/modules(\/|$)/.test(route.fullPath)
     const sandboxR = /^\/sandbox(\/|$)/.test(route.fullPath)

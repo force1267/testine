@@ -28,7 +28,7 @@ import cookies from 'js-cookie' // to parse and set cookie on client side
 * set up data observation, compile the template, mount the instance to the DOM, and update the DOM when data changes!
 */
 
-export const state = () => ({ // here we are setting up a states called user and me to null at first in our entire components
+export const state = () => ({ // here we are setting up a state called user to null at first in our entire components
   user: null
 })
 
@@ -51,8 +51,10 @@ export const mutations = {
 * Actions can contain arbitrary asynchronous operations.
 * The fetch method is used to fill the store before rendering the page,
 * it's like the asyncData method except it doesn't set the component data
+* To make the fetch method asynchronous, return a Promise, 
+* Nuxt.js will wait for the promise to be resolved before rendering the component.
 */
-export const actions = {
+export const actions = { // actions are promises that we can use .then and .catch in them
   fetch ({commit}) {
     return api.auth.me() // all client side apis are in api folder; see index.js inside api folder
       .then(response => {

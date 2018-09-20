@@ -8,7 +8,7 @@
           <small>
             <em>&mdash;CONSTRUCTION</em>
             <div>
-              setup head() for seo
+              setup head() for seo => https://gist.github.com/lancejpollard/1978404
             </div>
           </small>
         </footer>
