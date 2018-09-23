@@ -35,7 +35,6 @@ export const state = () => ({ // here we are setting up a state called user to n
 /* ----------------------------------------------------------------------------------
 *  The only way to actually change state in a Vuex store is by committing a mutation.
 *  due to using a single state tree, divide ur store into modules(use below link)
-*  https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
 */
 export const mutations = {
   set_user (store, data) { // setting up our user state to received data from server

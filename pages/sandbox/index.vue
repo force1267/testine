@@ -12,6 +12,7 @@
               and vuetify sanbox with logo changing for whole site and login vue footer and header settings we build careers section<br>
               https://vuetifyjs.com/en/directives/ripples#example-custom-ripple
               setup head() for seo => https://gist.github.com/lancejpollard/1978404
+              <!-- work on <v-app light> so the admin can change the env color like set it to dark => https://github.com/nuxt/nuxt.js/issues/1685 -->
             </div>
           </small>
         </footer>

@@ -11,8 +11,8 @@
                 use vuetify tab to fetch all user with their info in one single page
                 this is the control center of registred user like ezapply site
                 so we need a login/registration system for our students
-                use live search and admin can add new student
-                create student reg sys using isAdmin flag in ownerinfo document
+                use live search and admin can add new student edit and delete them
+                create student reg sys based on isAdmin flag structure in ownerinfo document
                 setup head() for seo => https://gist.github.com/lancejpollard/1978404
             </div>
           </small>

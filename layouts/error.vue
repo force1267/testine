@@ -1,5 +1,4 @@
 <template>
- 
     <v-hover>
      <v-card 
           slot-scope="{ hover }"
@@ -17,7 +16,6 @@
         </v-card-actions>
      </v-card>
     </v-hover>
-  
 </template>
 
 <script>
