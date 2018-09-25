@@ -33,7 +33,7 @@ module.exports = ({express, jwt, User, crypto}) => {
           // save the new lastseendate value
           User.updateOne({_id: doc._id}, doc, function (err, u) {
                 if (err) res.status(400).json({type: 'error', message: 'Cant update lastseendate!', err})
-                res.json({ // we can't set the header after they are sent to the client so we put the res.json inside the update process!
+                res.json({ // we can't set the header after they are sent to the client so we put the res.json inside the update process and send to client!
                   type: 'success',
                   message: 'User logged in.',
                   user: {id: doc._id, isAdmin: doc.isAdmin, email: doc.email, username: doc.username, avatar: doc.avatar, bio: doc.bio, createdAt: doc.createdAt, updatedAt: doc.updatedAt, lastseendate: doc.lastseendate, activation_token: doc.activation_token},

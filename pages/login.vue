@@ -8,8 +8,8 @@
           style="flex: 0 1 400px"
         >
         <v-img
-        :aspect-ratio="16/9"
-        src="/cds.svg"
+        :aspect-ratio="4/3"
+        src="/cds.jpg"
         ></v-img>
       <!-- <v-card-title class="headline">CDS</v-card-title> -->
       <v-card-text>

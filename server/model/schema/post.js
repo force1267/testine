@@ -7,9 +7,13 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 const postSchema = new Schema({
     title: { type: String, required: true },
+    en_title: { type: String, required: true },
     content: { type: String, required: true }, //TODO: use CK-editor for post content!
+    en_content: { type: String, required: true },
     slug: { type: String, required: true },
-    magpic: {type: String, required: true},
+    en_slug: { type: String, required: true },
+    cover: {type: String, type: String, default: '' },
+    en_cover: {type: String, type: String, default: '' },
     cuid: { type: String, required: true }
 }, {timestamps: true})
 
