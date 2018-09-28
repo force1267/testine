@@ -11,7 +11,7 @@
             reserving consultancy time - 
             online consultancy sessions(telegram bot or other online stuffs like our own online consultancy streaming, portal control center[all its infos])
             related form control center here..
-            we have document in which we store all froms in there
+            we have document in which we store all forms in there
             then we'll use them in their related pages with their own _id
             we use index.vue to fetch all of theme! and admin can active/deactive them
             setup head() for seo => https://gist.github.com/lancejpollard/1978404

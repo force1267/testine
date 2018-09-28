@@ -13,6 +13,7 @@ export default function ({store, redirect, route}) {
     // and dispatch the fetch action to fill the user state before rendering the page so if everything
     // was ok then we have store.state.auth.user in our entire application!
     const userIsLoggedIn = !!store.state.auth.user
+    // client must be authorized to access below resources
     const cdsSetupR = /^\/cds-setup(\/|$)/.test(route.fullPath)
     const postsR = /^\/magazine-control-center(\/|$)/.test(route.fullPath) // TODO: set auth middleware for post id!
     const commentsR = /^\/comment-control-center(\/|$)/.test(route.fullPath)
@@ -28,7 +29,7 @@ export default function ({store, redirect, route}) {
     const urlRequiresNonAuth = /^\/login(\/|$)/.test(route.fullPath)
 
     if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || sandboxR || AQR || commentsR || scR || ciR || ABR || csR || certsR)) {
-      return redirect('/login')
+      return redirect('/login') // unauthorized access!
     }
     if (userIsLoggedIn && urlRequiresNonAuth) {
       return redirect('/cds-setup')

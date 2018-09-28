@@ -9,7 +9,7 @@
         >
         <v-img
         :aspect-ratio="4/3"
-        src="/cds.jpg"
+        src="/cds.svg"
         ></v-img>
       <!-- <v-card-title class="headline">CDS</v-card-title> -->
       <v-card-text>

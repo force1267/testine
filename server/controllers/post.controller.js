@@ -2,13 +2,14 @@
 /* --------------
 * Post Controller
 */
-
+// TODO: use upload.single('file') for post cover
 const Post = require('../model/schema/post')
 const cuid = require('cuid')
 const slug = require('limax')
-const sanitizeHtml = require('sanitize-html')
-
+const sanitizeHtml = require('sanitize-html') // or use xss
 const PostController = {}
+
+// API route to fetch all posts
 PostController.getAll = async (req, res) => {
     try{
         await Post.find().sort('-dateAdded').exec((err, posts) => {
@@ -23,6 +24,7 @@ PostController.getAll = async (req, res) => {
     }
 }
 
+// API route to fetch a single post
 PostController.getPost = async (req, res) => {
     try{
         Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
@@ -37,6 +39,8 @@ PostController.getPost = async (req, res) => {
     }
 }
 
+// API route to add a post
+// get post cover using req.file.filename
 PostController.addPost = async (req, res) => {
     try {
         if (!req.body.post.title || !req.body.post.content) {
@@ -64,6 +68,7 @@ PostController.addPost = async (req, res) => {
     }
 }
 
+// API route to update a post
 PostController.updatePost = async (req, res) => {
     try {
         if (!req.body.post.title || !req.body.post.content) {
@@ -94,6 +99,7 @@ PostController.updatePost = async (req, res) => {
     }
 }
 
+// API route to delete a post
 PostController.deletePost = async (req, res) => {
     try {
         Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {

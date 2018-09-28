@@ -17,8 +17,8 @@ module.exports = ({express, jwt, User, crypto}) => {
           cb(null, raw.toString('hex') + Date.now() + path.extname(file.originalname))
         });
       }
-  })
-  const upload = multer({storage: storage})
+   })
+    const upload = multer({storage: storage})
 
  // API route to login
     routes.post('/login', (req, res) => {
@@ -46,7 +46,7 @@ module.exports = ({express, jwt, User, crypto}) => {
 // API route to check the user
     routes.get('/me', (req, res) => { 
       const token = req.headers['x-access-token']
-      if (!token) return res.status(400).json({type: 'error', message: 'x-access-token header not found.'})
+      if (!token) return res.status(401).json({type: 'error', message: 'x-access-token header not found.'})
       jwt.verify(token, cfg.JWT_SECRET, (error, result) => {
         if (error) return res.status(403).json({type: 'error', message: 'Provided token is invalid.', error})
         // we are finding our user using its jwt decoded id to update its info and send the entire user document
@@ -123,7 +123,7 @@ module.exports = ({express, jwt, User, crypto}) => {
 // API route to upload and update avatar(i think we need graphql just not to send the whole user info again)
     routes.post('/upload', upload.single('file'), (req,res)=>{
     // we are using multer to handle incomming files in req from client
-    // we are updating the user avatar and sending the entire modeldocumnet again(cause of sore structure)
+    // we are updating the user avatar and sending the entire model documnet again(cause of sore and rest api structure and we're not using graphql)
     // along with the successfull message.
       User.findByIdAndUpdate(req.body.userID, {'avatar': req.file.filename}, {new: true}, 
       function(err, model){

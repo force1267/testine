@@ -1,9 +1,11 @@
 
 
-module.exports = ({express, User}) => {
+module.exports = ({express, User, Post, Comments}) => {
     const routes = express.Router()
     const crypto = require('crypto')
     const salt = crypto.randomBytes(16).toString('hex')
+    const cuid = require('cuid')
+    const slug = require('limax')
 
   // API route to add new admin in database 
     routes.post('/signup', (req, res) => {
@@ -18,11 +20,46 @@ module.exports = ({express, User}) => {
       })
     
       User.save(function (err) {
-          if(err!==null) res.json({type:'error', message: 'cant save!'})
+          if(err!==null) res.json({type:'error', message: 'cant save!', err})
           res.json({type: 'success', message: 'Saved!', err}) // on success save it'll return err = null
       })
     })
 
+  // API route to add new post in database
+    routes.post('/add-new-post', (req, res) =>{
+      Post = new Post({
+        title: req.body.title,
+        en_title: req.body.en_title,
+        content: req.body.content,
+        en_content: req.body.en_content,
+        slug: req.body.title.replace(/ /g,"-"),
+        en_slug: slug(req.body.en_title.toLowerCase(), { lowercase: true }),
+        cover: "0c49c887f015a0973a64bcf8fbb7d7681538036565310.png",
+        cuid: cuid()
+      })
+
+      Post.save(function(err, post){
+        if(err!==null) res.json({type:'error', message: 'cant save!', err})
+        res.json({type: 'success', message: 'Saved!', post})
+      })
+
+    })
+  // API route to add new comment in database
+    routes.post('/add-new-comment', (req, res) => {
+      Comments = new Comments({
+        post_cuid: req.body.post_cuid,
+        name: req.body.name,
+        email: req.body.email,
+        content: req.body.content,
+        cuid: cuid()
+      })
+
+      Comments.save((err, cmnt)=>{
+        if(err!==null) res.json({type:'error', message:'cant save!', err})
+        res.json({type:'success', message:'Saved!', cmnt})
+      })
+
+    })
  // API route to campare the hash of the req.body.password with stored hash in the database
     routes.post('/compare', (req, res) => {
       const email = req.body.email

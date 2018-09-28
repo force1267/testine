@@ -13,5 +13,12 @@ export default {
     login: (data) => axios.post('auth/login', data), // we need the data object to save user info in db and set retrieved token in client cookie along with other user info to welcome him in cds-setup.vue
     update: (data) => axios.post('auth/update', data), // sending data object containing all updated user ingo to the server
     upload: (data) => axios.post('auth/upload', data) // sending data object containing user avatar to the server
+  },
+  comment:{
+    getComment: (cuid) => axios.get('comments/getComment/', {params:{cuid: cuid}}), // get a single comment
+    geAll: () => axios.get('comments/all'), // get all comments from database
+    updateComment: (data) => axios.put('comments/updateComment/', data, {params: {cuid: data.cuid}}), // update a single comment; contain comment cuid
+    deleteComment: (cuid) => axios.delete('comments/deleteComment/', {params: {cuid: cuid}}), // delete a single comment
+    addComment: (data) => axios.post('comments/addComment', data) // add comment into database; only for clients
   }
 }

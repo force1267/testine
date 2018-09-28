@@ -1,0 +1,121 @@
+
+
+/* -----------------
+* Comment Controller
+*/
+
+
+const Comments = require('../model/schema/comment')
+const sanitizeHtml = require('sanitize-html')
+const cuid = require('cuid')
+const CommentController = {}
+
+// API route to get all comments
+CommentController.getAll = async (req, res) => {
+    try{
+        await Comments.find().sort('-createdAt').exec((err, comments) => {
+            if (err) {
+                return res.status(500).json({type: 'error', message:'Server error', err})
+            }
+            return res.json({type:'success', message:'fetched successfully', comments })
+        })
+    }
+    catch(err){
+        return res.json({type:'error', message: 'Sorry! Bad Erorr, Try Again.', err})
+    }
+}
+
+// API route to get a single comment
+CommentController.getComment = async (req, res) => {
+    try{
+        Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
+            if (err) {
+                return res.status(500).json({type: 'error', message:'Server error', err})
+            }
+            return res.json({type:'success', message:'fetched successfully', comment })
+        })
+    }
+    catch(err){
+        return res.json({type:'error', message: 'Sorry! Bad Erorr, Try Again.', err})
+    }
+}
+
+// API route to add a new comment
+// this route belongs to users only to add comment for a specific post so post_cuid is required on that post page component
+// TODO: validation on client side like cds-setup page using vue rules
+CommentController.addComment = async (req, res) => { 
+    try {
+        if (!req.body.name || !req.body.email || !req.body.content) {
+            return res.status(403).json({type: 'error', message: 'email, name and content fields are essential.'})
+        }
+        newComment = new Comments({
+            email: sanitizeHtml(req.body.email),
+            name: sanitizeHtml(req.body.name),
+            post_cuid: req.body.post_cuid,
+            content: req.body.content, // we can't sanitize content cause we're using ck-editor
+            cuid: cuid()
+        })
+
+        newComment.save((err, comment) => {
+            if (err) {
+                return res.status(500).json({type: 'error', message:'Server error', err}) // eg: for required fields like post_cuid
+            }
+            return res.json({type:'success', message:'New Comment Saved Successfully!', comment })
+        })
+    }
+    catch (err) {
+        return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
+    }
+}
+
+// API route to update a single comment
+CommentController.updateComment = async (req, res) => {
+    try {
+        if (!req.body.content) {
+            return res.status(403).json({type: 'error', message: 'content fields is essential for update.'})
+        }
+        Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
+            // Handle any possible database errors
+            if (err) {
+                return res.status(500).json({type: 'error', message:'Server error', err})
+            } else {
+                // Update each attribute with any possible attribute that may have been submitted in the body of the request
+                // If that attribute isn't in the request body, default back to whatever it was before.
+                comment.name = req.body.name || comment.name
+                comment.content = req.body.content || comment.content
+                comment.email = req.body.email || comment.email
+                comment.status = req.body.status || comment.status
+                // Save the updated document back to the database
+                comment.save((err, comment) => {
+                    if (err) {
+                        return res.status(500).json({type: 'error', message:'Server error', err})
+                    }
+                    return res.json({type:'success', message:'updated successfully', comment })
+                })
+            }
+        })
+    }
+    catch (err) {
+        return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
+    }
+}
+
+// API route to delete a single comment
+CommentController.deleteComment = async (req, res) => {
+    try {
+        Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
+            if (err) {
+                return res.status(500).json({type: 'error', message:'Server error', err})
+            }
+
+            comment.remove(() => {
+                res.status(200).json({type: 'success', message: 'removed successfylly', comment})
+            })
+        })
+    }
+    catch (err) {
+        console.log(err)
+    }
+}
+
+module.exports = CommentController

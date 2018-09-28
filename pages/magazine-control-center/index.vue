@@ -6,20 +6,23 @@
               create a comment component and bind post._id as a props on its attribute from inside _id.vue
               then in comment component disptach all comments related to that post and show them in vue 
               finally load the comment component in _id.vue(comment container)
-              https://github.com/vuejs/vuex/tree/dev/examples/shopping-cart
-              https://nuxtjs.org/guide/vuex-store#modules-mode
               https://vuetifyjs.com/en/layout/grid
   
-  
+     <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
   
     </v-flex>
   </v-layout>
 </template>
 
 <script>
+const suid = require('rand-token').suid
+const token = suid(16)
 export default {
   data(){
     // all component data here
+    return {
+      alert: null,
+   }
   },
   computed:{
     // fetch all posts from store before rendering the page
@@ -32,6 +35,13 @@ export default {
   },
   head(){ // https://gist.github.com/lancejpollard/1978404
     // setup seo
+    return {
+      title: 'cds - '+token,
+      meta: [
+        { hid: 'description', name: 'description', content: token },
+        { hid: 'robots', name: 'robots', content: 'noindex,nofollow'}
+      ]
+    }
   }
   
 }

@@ -65,4 +65,5 @@ This will pause the async function and wait for the Promise to resolve prior to 
 https://medium.com/@tkssharma/writing-neat-asynchronous-node-js-code-with-promises-async-await-fa8d8b0bcd7c
 https://zeit.co/blog/async-and-await
 https://medium.com/platformer-blog/node-js-concurrency-with-async-await-and-promises-b4c4ae8f4510
+https://itnext.io/efficiently-understanding-and-using-nuxt-vuex-7905eb8858d6
 */

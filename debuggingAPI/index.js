@@ -4,8 +4,10 @@ const express = require('express')
 const mongoose = require('mongoose')
 const bodyParser = require('body-parser')
 const cfg = require('./.config')
-const auth = require('./auth')
+const route = require('./route')
 const User = require('./user')
+const Post = require('./post')
+const Comments = require('./comment')
 const chalk = require('chalk')
 const cors = require('cors')
 var connected = chalk.bold.cyan
@@ -19,7 +21,7 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
 
 
-app.use('/auth', auth({express, User}))
+app.use('/route', route({express, User, Post, Comments}))
 
 app.listen(5430, 'localhost')
 console.log('Server listening ...')

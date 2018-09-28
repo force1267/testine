@@ -1,15 +1,16 @@
 
 //TODO: add rate-limiter
+// const cors = require('cors')
 const db = require('./model/db/db')
 const express = require('express')
 const cfg = require('./config/.config')
-const crypto = require('crypto')
+const crypto = require('crypto') // pass to auth route
 const bodyParser = require('body-parser')
-// const cors = require('cors')
-// const posts = require('./routes/posts.route')
+const Posts = require('./routes/posts.route')
+const User = require('./model/schema/user') // pass to auth route
+const Comments = require('./routes/comments.route')
 const auth = require('./routes/auth.route')
-const User = require('./model/schema/user')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken') // pass to auth route
 const { Nuxt, Builder } = require('nuxt')
 const app = express()
 const host = cfg.HOST || '127.0.0.1'
@@ -33,8 +34,8 @@ app.use((req, res, next) => {
 // app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({extended: false}))
-
-// app.use('/posts')
+app.use('/posts', Posts)
+app.use('/comments', Comments)
 app.use('/auth', auth({express, jwt, User, crypto}))
 
 // Import and Set Nuxt.js options
