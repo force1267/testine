@@ -1,5 +1,8 @@
 
 
+// TODO: we need to commit our state in each action otherwise won't have the run-time feature and computed method will be meaningless!
+// TODO: this store is returned null in computed method!
+
 import api from '~/api'
 
 export const state = () => ({

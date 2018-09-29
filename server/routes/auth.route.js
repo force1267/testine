@@ -58,6 +58,7 @@ module.exports = ({express, jwt, User, crypto}) => {
         // we could use this feature for this route but know this that every module is for a specific route CRUD
         // and we are using auth.js for all auth routes CRUD which is belong to our user state! 
         // and for something like posts state we have to use posts module in our store.
+        // we have to return the whole user doc back from database cause if we don't commit our user state the computed method and its run-time feature will be meaningless!
         User.findOne({_id: result.id}, 
           function(err, model) {
               if(!err){
@@ -88,6 +89,7 @@ module.exports = ({express, jwt, User, crypto}) => {
     })
 // API route to update the user
     routes.post('/update', (req,res) => {
+    // we have to return the whole user doc back from database cause if we don't commit our user state the computed method and its run-time feature will be meaningless!
     // we are finding our user by its id to update his document.
     // after that we'll send our response along with the updated 
     // document in order to save it on our user state in our auth store!
@@ -122,6 +124,7 @@ module.exports = ({express, jwt, User, crypto}) => {
     })
 // API route to upload and update avatar(i think we need graphql just not to send the whole user info again)
     routes.post('/upload', upload.single('file'), (req,res)=>{
+    // we have to return the whole user doc back from database cause if we don't commit our user state the computed method and its run-time feature will be meaningless!
     // we are using multer to handle incomming files in req from client
     // we are updating the user avatar and sending the entire model documnet again(cause of sore and rest api structure and we're not using graphql)
     // along with the successfull message.

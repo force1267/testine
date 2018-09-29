@@ -32,7 +32,7 @@ export default {
       alert: null,
    }
   },
-  computed:{ // recompute any changes
+  computed:{ // recompute any changes back from store state in a run-time manner!
     // fetch all comments from store before rendering the page
     comments(){
        if(this.$store.state.comments){

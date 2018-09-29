@@ -28,6 +28,7 @@ import cookies from 'js-cookie' // to parse and set cookie on client side
 * set up data observation, compile the template, mount the instance to the DOM, and update the DOM when data changes!
 */
 
+// this store and its state it's for admin only
 export const state = () => ({ // here we are setting up a state called user to null at first in our entire components
   user: null
 })
