@@ -6,7 +6,7 @@
               create a comment component and bind post._id as a props on its attribute from inside _id.vue
               then in comment component disptach all comments related to that post and show them in vue 
               finally load the comment component in _id.vue(comment container)
-              https://vuetifyjs.com/en/layout/grid
+              https://vuetifyjs.com/en/components/data-tables#example-crud
   
      <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
   

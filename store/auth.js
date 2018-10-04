@@ -35,7 +35,7 @@ export const state = () => ({ // here we are setting up a state called user to n
 
 /* ----------------------------------------------------------------------------------
 *  The only way to actually change state in a Vuex store is by committing a mutation.
-*  due to using a single state tree, divide ur store into modules(use below link)
+*  due to using a single state tree, divide ur store into modules
 */
 export const mutations = {
   set_user (store, data) { // setting up our user state to received data from server
@@ -49,10 +49,6 @@ export const mutations = {
 /* -----------------------------------------------------------------------
 * Instead of mutating the state, actions commit mutations.
 * Actions can contain arbitrary asynchronous operations.
-* The fetch method is used to fill the store before rendering the page,
-* it's like the asyncData method except it doesn't set the component data
-* To make the fetch method asynchronous, return a Promise, 
-* Nuxt.js will wait for the promise to be resolved before rendering the component.
 */
 export const actions = { // actions are promises that we can use .then and .catch in them
   fetch ({commit}) {
@@ -88,7 +84,7 @@ export const actions = { // actions are promises that we can use .then and .catc
         return error
       })
   },
-  login ({commit}, data) {
+  login ({commit}, data) { // we'll fill the store using login action
     return api.auth.login(data) // all client side apis are in api folder; see index.js inside api folder
       .then(response => {
         commit('set_user', response.data.user) // commit(change/set) the user in sotre to returned data from /login route 

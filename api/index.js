@@ -16,7 +16,7 @@ export default {
   },
   comment:{
     getComment: (cuid) => axios.get('comments/', {params:{cuid: cuid}}), // get a single comment
-    geAll: () => axios.get('comments/all'), // get all comments from database
+    fetchAll: () => axios.get('comments/all'), // get all comments from database
     updateComment: (data) => axios.put('comments/', data, {params: {cuid: data.cuid}}), // update a single comment; contain comment cuid
     deleteComment: (cuid) => axios.delete('comments/', {params: {cuid: cuid}}), // delete a single comment
     addComment: (data) => axios.post('comments/add-new', data) // add comment into database; only for clients

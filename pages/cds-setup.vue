@@ -161,6 +161,7 @@ import UploadFile from '@/components/UploadFile'
 
 export default {
   components: {UploadFile},
+  watchQuery: ['page'],
   data(){ // validate on client side babe ;-)
    return {
     metaCont: '',

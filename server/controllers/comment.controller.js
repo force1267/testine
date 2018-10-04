@@ -12,6 +12,7 @@
 // fetch all comments in every route and send them through res.json object!
 
 const Comments = require('../model/schema/comment')
+const Posts = require('../model/schema/post')
 const sanitizeHtml = require('sanitize-html')
 const cuid = require('cuid')
 const CommentController = {}
@@ -20,9 +21,7 @@ const CommentController = {}
 CommentController.getAll = async (req, res) => {
     try{
         await Comments.find().sort('-createdAt').exec((err, comments) => {
-            if (err) {
-                return res.status(500).json({type: 'error', message:'Server error', err})
-            }
+            if (err) return res.status(500).json({type: 'error', message:'Server error', err})
             return res.json({type:'success', message:'fetched successfully', comments })
         })
     }
@@ -31,15 +30,15 @@ CommentController.getAll = async (req, res) => {
     }
 }
 
-// API route to get a single comment
-// it might be usefull later on admin side
+// API route to get a single comment and its post info
 CommentController.getComment = async (req, res) => {
     try{
         Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
-            if (err) {
-                return res.status(500).json({type: 'error', message:'Server error', err})
-            }
-            return res.json({type:'success', message:'fetched successfully', comment })
+            if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+            Posts.findOne({ cuid: comment.post_cuid }).exec((err, post) => {
+                if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+                return res.json({type:'success', message:'fetched successfully', comment, post })
+            })
         })
     }
     catch(err){
@@ -52,9 +51,8 @@ CommentController.getComment = async (req, res) => {
 // TODO: validation on client side like cds-setup page using vue rules
 CommentController.addComment = async (req, res) => { 
     try {
-        if (!req.body.name || !req.body.email || !req.body.content) {
-            return res.status(403).json({type: 'error', message: 'email, name and content fields are essential.'})
-        }
+        if (!req.body.name || !req.body.email || !req.body.content) return res.status(403).json({type: 'error', message: 'email, name and content fields are essential.'})
+
         newComment = new Comments({
             email: sanitizeHtml(req.body.email), // I can't trust user input
             name: sanitizeHtml(req.body.name), // I can't trust user input
@@ -64,9 +62,7 @@ CommentController.addComment = async (req, res) => {
         })
 
         newComment.save((err, comment) => {
-            if (err) {
-                return res.status(500).json({type: 'error', message:'Server error', err}) // eg: for required fields like post_cuid
-            }
+            if (err) return res.status(500).json({type: 'error', message:'Server error', err}) // eg: for required fields like post_cuid
             return res.json({type:'success', message:'New Comment Saved Successfully!', comment })
         })
     }
@@ -78,9 +74,7 @@ CommentController.addComment = async (req, res) => {
 // API route to update a single comment
 CommentController.updateComment = async (req, res) => {
     try {
-        if (!req.body.content) {
-            return res.status(403).json({type: 'error', message: 'content fields is essential for update.'})
-        }
+        if (!req.body.content) return res.status(403).json({type: 'error', message: 'content fields is essential for update.'})
         Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
             // Handle any possible database errors
             if (err) {
@@ -94,15 +88,12 @@ CommentController.updateComment = async (req, res) => {
                 comment.status = req.body.status || comment.status
                 // Save the updated document back to the database
                 comment.save((err, comment) => {
-                    if (err) {
-                        return res.status(500).json({type: 'error', message:'Server error', err})
-                    }
+                    if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+
                     // we return all comments in order to commit the comments state 
                     // again and feel the run-time manner in computed method!   
                     Comments.find().sort('-createdAt').exec((err, comments) => {
-                        if (err) {
-                            return res.status(500).json({type: 'error', message:'Server error', err})
-                        }
+                        if (err) return res.status(500).json({type: 'error', message:'Server error', err})
                         return res.json({type:'success', message:'updated successfully', comments})
                     })
                 })
@@ -118,25 +109,20 @@ CommentController.updateComment = async (req, res) => {
 CommentController.deleteComment = async (req, res) => {
     try {
         Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
-            if (err) {
-                return res.status(500).json({type: 'error', message:'Server error', err})
-            }
-
+            if (err) return res.status(500).json({type: 'error', message:'Server error', err})
             comment.remove(() => {
                 // return res.status(200).json({type: 'success', message: 'removed successfylly', comment})
                 // we return all comments in order to commit the comments state 
                 // again and feel the run-time manner in computed method!
                 Comments.find().sort('-createdAt').exec((err, comments) => {
-                    if (err) {
-                        return res.status(500).json({type: 'error', message:'Server error', err})
-                    }
-                    return res.json({type:'success', message:'updated successfully', comments})
+                    if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+                    return res.json({type:'success', message:'fetched successfully', comments})
                 })
             })
         })
     }
     catch (err) {
-        console.log(err)
+        return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
     }
 }
 

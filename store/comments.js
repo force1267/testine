@@ -21,19 +21,22 @@ export const mutations = {
 
 // interact with database and commit mutations
 export const actions = {
-  fetch ({commit}) { // is called everytime before loading the component 
-    return api.comment.getAll()
-      .then(response => {
-        commit('set_comment', response.data.comments)
-        return response
-        // console.log("i'm back from server")
-      })
-      .catch(error => {
-        commit('reset_comment')
-        return error
-      })
+  async fetch ({ commit }) {
+    const { data } = await api.comment.fetchAll()
+    commit('set_comment', data)
   },
-  getComment({commit}, cuid){ // it might be usefull later or maybe not!
+  // fetch ({commit}) {
+  //   return api.comment.fetchAll()
+  //     .then(response => {
+  //       commit('set_comment', response.data.comments)
+  //       return response
+  //     })
+  //     .catch(error => {
+  //       commit('reset_comment')
+  //       return error
+  //     })
+  // },
+  getComment({commit}, cuid){
     return api.comment.getComment(cuid)
       .then(response=>{
         return response
@@ -61,7 +64,6 @@ export const actions = {
         return response
       })
       .catch(error=>{
-        commit('reset_comment')
         return error
       })
   },
