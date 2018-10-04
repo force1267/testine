@@ -1,0 +1,30 @@
+// post 1
+{
+    "_id" : ObjectId("5bac9486d401131824f1ac7f"),
+    "cover" : "0a32c887f005a0973a64bcf8fbb7d7651538036565310.png",
+    "title" : "اولین پست",
+    "en_title" : "first post",
+    "content" : "این یک تست است.",
+    "en_content" : "this is a test.",
+    "slug" : "اولین-پست",
+    "en_slug" : "first-post",
+    "cuid" : "cjmkbfwd10000rowbcfy7917c",
+    "createdAt" : ISODate("2018-09-27T08:27:50.307Z"),
+    "updatedAt" : ISODate("2018-09-27T08:27:50.307Z"),
+    "__v" : 0
+}
+// post 2
+{
+    "_id" : ObjectId("5bac9486d401131824f1ac7f"),
+    "cover" : "0a32c887f005a0973a64bcf8fbb7d7651538036565310.png",
+    "title" : "اولین پست",
+    "en_title" : "first post",
+    "content" : "این یک تست است.",
+    "en_content" : "this is a test.",
+    "slug" : "اولین-پست",
+    "en_slug" : "first-post",
+    "cuid" : "cjmkbfwd10000rowbcfy7917c",
+    "createdAt" : ISODate("2018-09-27T08:27:50.307Z"),
+    "updatedAt" : ISODate("2018-09-27T08:27:50.307Z"),
+    "__v" : 0
+}

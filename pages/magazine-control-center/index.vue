@@ -34,7 +34,7 @@ export default {
     // all inner methods and store interaction here
   },
   head(){ // https://gist.github.com/lancejpollard/1978404
-    // setup seo
+    // setup seo and other head tags
     return {
       title: 'cds - '+token,
       meta: [

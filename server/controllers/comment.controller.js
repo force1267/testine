@@ -4,6 +4,12 @@
 * Comment Controller
 */
 
+// we have to return the whole comment documents to the comments store
+// to commit the comment state and update it with a fresh documents every time 
+// we dispatch an action from store to back end database in order to use the run-time
+// manner in computed method vue page. the problem with REST api is we don't act like
+// graph to fetch only what we need; so GraphQl is needed. because of that nature we'll
+// fetch all comments in every route and send them through res.json object!
 
 const Comments = require('../model/schema/comment')
 const sanitizeHtml = require('sanitize-html')
@@ -26,6 +32,7 @@ CommentController.getAll = async (req, res) => {
 }
 
 // API route to get a single comment
+// it might be usefull later on admin side
 CommentController.getComment = async (req, res) => {
     try{
         Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
@@ -49,8 +56,8 @@ CommentController.addComment = async (req, res) => {
             return res.status(403).json({type: 'error', message: 'email, name and content fields are essential.'})
         }
         newComment = new Comments({
-            email: sanitizeHtml(req.body.email),
-            name: sanitizeHtml(req.body.name),
+            email: sanitizeHtml(req.body.email), // I can't trust user input
+            name: sanitizeHtml(req.body.name), // I can't trust user input
             post_cuid: req.body.post_cuid,
             content: req.body.content, // we can't sanitize content cause we're using ck-editor
             cuid: cuid()
@@ -82,7 +89,7 @@ CommentController.updateComment = async (req, res) => {
                 // Update each attribute with any possible attribute that may have been submitted in the body of the request
                 // If that attribute isn't in the request body, default back to whatever it was before.
                 comment.name = req.body.name || comment.name
-                comment.content = req.body.content || comment.content
+                comment.content = req.body.content || comment.content // if content is empty we can't be here but we're considering the worst case!
                 comment.email = req.body.email || comment.email
                 comment.status = req.body.status || comment.status
                 // Save the updated document back to the database
@@ -90,7 +97,14 @@ CommentController.updateComment = async (req, res) => {
                     if (err) {
                         return res.status(500).json({type: 'error', message:'Server error', err})
                     }
-                    return res.json({type:'success', message:'updated successfully', comment })
+                    // we return all comments in order to commit the comments state 
+                    // again and feel the run-time manner in computed method!   
+                    Comments.find().sort('-createdAt').exec((err, comments) => {
+                        if (err) {
+                            return res.status(500).json({type: 'error', message:'Server error', err})
+                        }
+                        return res.json({type:'success', message:'updated successfully', comments})
+                    })
                 })
             }
         })
@@ -109,7 +123,15 @@ CommentController.deleteComment = async (req, res) => {
             }
 
             comment.remove(() => {
-                res.status(200).json({type: 'success', message: 'removed successfylly', comment})
+                // return res.status(200).json({type: 'success', message: 'removed successfylly', comment})
+                // we return all comments in order to commit the comments state 
+                // again and feel the run-time manner in computed method!
+                Comments.find().sort('-createdAt').exec((err, comments) => {
+                    if (err) {
+                        return res.status(500).json({type: 'error', message:'Server error', err})
+                    }
+                    return res.json({type:'success', message:'updated successfully', comments})
+                })
             })
         })
     }

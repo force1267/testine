@@ -19,7 +19,7 @@ $ npm start
 $ npm run generate
 ```
 
-## To Import Data For A Collection In robo3t:
+## To Import Data For A Collection In robo3t(json folder inside server/db folder):
 ```
 $ Right click on collection
 $ Select 'insert Document'

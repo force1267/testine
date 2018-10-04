@@ -5,9 +5,9 @@
 
       use live search pagination and admin must submit a comment and he can send email to those comment name
       edit every comment in a dialog which is in a ck-editor and load its post cover with post_cuid; its a kinda single page editting
-      for upload and delete we use comment cuid as params in axios config
       also use cehckbox for submit a comment and don't forget for error handling using alert
       https://vuetifyjs.com/en/layout/grid
+
 
       <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
 
@@ -16,6 +16,7 @@
           {{comment}}
         </li>
       </ul>
+
 
 
     </v-flex>
@@ -36,8 +37,8 @@ export default {
     // fetch all comments from store before rendering the page
     comments(){
        if(this.$store.state.comments){
-         console.log(this.$store.state.comments)
-        return this.$store.state.comments.comments
+         console.log(this.$store.state.comments.list)
+        return this.$store.state.comments.cmntlist
       } else return null
     }
   },
@@ -45,7 +46,7 @@ export default {
     // all inner methods and store interaction here
   },
   head(){ // https://gist.github.com/lancejpollard/1978404
-    // setup seo
+    // setup seo and other head tags
     return {
       title: 'cds - '+token,
       meta: [

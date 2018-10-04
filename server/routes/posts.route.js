@@ -29,7 +29,8 @@ router.get('/:cuid', (req, res) =>{
 })
 
 // Add a new Post
-router.post('/add-new', upload.single('file'), (req, res) => { // use UplodFile.vue and use req.file.filename in post.controller.js
+// use UplodFile.vue and use req.file.filename in post.controller.js to get the user file for post cover
+router.post('/add-new', upload.single('file'), (req, res) => {
     PostController.addPost(req, res)
 })
 

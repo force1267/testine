@@ -10,12 +10,13 @@
             <div>
                 use vuetify tab to fetch all user with their info in one single page
                 this is the control center of registred user like ezapply site
-                so we need a login/registration system for our students
                 use live search and admin can add new student edit and delete them
-                use another login page for students control center and create a dashboard page for them
-                we need a another store state for our students but the route is auth and is the same as for admin
+                so we need a new login/registration system based on isAdmin flag structure 
+                in ownerinfo document and store getters feature with a dashboard page for our students
                 /auth/student/register ==== /auth/login ==== /auth/student/update .....
-                create student reg sys based on isAdmin flag structure in ownerinfo document and store getters feature
+                we store all public infos in ownerinfo document about our users in both admin and student mode
+                we need another collection and another store state to store the panel info of each student 
+                but we use auth.route.js and auth.js store file for both mode(don't wory about changing application state cause store is on client side)
                 setup head() for seo => https://gist.github.com/lancejpollard/1978404
             </div>
           </small>
