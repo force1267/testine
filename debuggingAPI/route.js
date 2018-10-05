@@ -33,8 +33,9 @@ module.exports = ({express, User, Post, Comments}) => {
         content: req.body.content,
         en_content: req.body.en_content,
         slug: req.body.title.replace(/ /g,"-"),
+        tags: req.body.tags.replace(/\s/g, '').split(","),
+        en_tags: req.body.en_tags.replace(/\s/g, '').split(","),
         en_slug: slug(req.body.en_title.toLowerCase(), { lowercase: true }),
-        cover: "0c49c887f015a0973a64bcf8fbb7d7681538036565310.png",
         cuid: cuid()
       })
 

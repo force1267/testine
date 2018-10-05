@@ -13,6 +13,8 @@ const postSchema = new Schema({
     slug: { type: String, required: true },
     en_slug: { type: String, required: true },
     cover: {type: String, type: String, default: '' },
+    tags: [String],
+    en_tags: [String],
     cuid: { type: String, required: true } // use instead of _id
 }, {timestamps: true})
 

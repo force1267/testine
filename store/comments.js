@@ -25,17 +25,6 @@ export const actions = {
     const { data } = await api.comment.fetchAll()
     commit('set_comment', data)
   },
-  // fetch ({commit}) {
-  //   return api.comment.fetchAll()
-  //     .then(response => {
-  //       commit('set_comment', response.data.comments)
-  //       return response
-  //     })
-  //     .catch(error => {
-  //       commit('reset_comment')
-  //       return error
-  //     })
-  // },
   getComment({commit}, cuid){
     return api.comment.getComment(cuid)
       .then(response=>{
@@ -61,9 +50,11 @@ export const actions = {
   addComment({commit}, data){
     return api.comment.addComment(data)
       .then(response => {
+        // commit('set_comment', response.data.comments)
         return response
       })
       .catch(error=>{
+        // commit('reset_comment')
         return error
       })
   },

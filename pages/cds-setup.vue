@@ -66,8 +66,8 @@
               </v-card>
             </v-dialog>
           <v-btn color="error" flat @click="logOut" class="ml-2">log me out!</v-btn>
-          <small class="ml-1"><em><v-icon class="red--text">touch_app</v-icon><timeago :datetime="lastseenTime" :auto-update="60"></timeago></em></small>
-          <small class="ml-1"><em><v-icon class="red--text">update</v-icon><timeago :datetime="updatedTime" :auto-update="60"></timeago></em></small>
+          <small class="ml-2"><em><v-icon class="red--text">touch_app</v-icon><timeago :datetime="lastseenTime" :auto-update="60"></timeago></em></small>
+          <small class="ml-4"><em><v-icon class="red--text">update</v-icon><timeago :datetime="updatedTime" :auto-update="60"></timeago></em></small>
         </v-card-actions>
     </v-card>
    </v-hover> <!-- ========================end-first-card======================== -->

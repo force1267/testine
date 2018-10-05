@@ -33,7 +33,7 @@ CommentController.getAll = async (req, res) => {
 // API route to get a single comment and its post info
 CommentController.getComment = async (req, res) => {
     try{
-        Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
+        await Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
             if (err) return res.status(500).json({type: 'error', message:'Server error', err})
             Posts.findOne({ cuid: comment.post_cuid }).exec((err, post) => {
                 if (err) return res.status(500).json({type: 'error', message:'Server error', err})
@@ -57,7 +57,7 @@ CommentController.addComment = async (req, res) => {
             email: sanitizeHtml(req.body.email), // I can't trust user input
             name: sanitizeHtml(req.body.name), // I can't trust user input
             post_cuid: req.body.post_cuid,
-            content: req.body.content, // we can't sanitize content cause we're using ck-editor
+            content: sanitizeHtml(req.body.content),
             cuid: cuid()
         })
 
@@ -82,9 +82,9 @@ CommentController.updateComment = async (req, res) => {
             } else {
                 // Update each attribute with any possible attribute that may have been submitted in the body of the request
                 // If that attribute isn't in the request body, default back to whatever it was before.
-                comment.name = req.body.name || comment.name
-                comment.content = req.body.content || comment.content // if content is empty we can't be here but we're considering the worst case!
-                comment.email = req.body.email || comment.email
+                comment.name = sanitizeHtml(req.body.name) || comment.name
+                comment.email = sanitizeHtml(req.body.email) || comment.email
+                comment.content = sanitizeHtml(req.body.content) || comment.content // if content is empty we can't be here but we're considering the worst case!
                 comment.status = req.body.status || comment.status
                 // Save the updated document back to the database
                 comment.save((err, comment) => {
@@ -108,7 +108,7 @@ CommentController.updateComment = async (req, res) => {
 // API route to delete a single comment
 CommentController.deleteComment = async (req, res) => {
     try {
-        Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
+        await Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
             if (err) return res.status(500).json({type: 'error', message:'Server error', err})
             comment.remove(() => {
                 // return res.status(200).json({type: 'success', message: 'removed successfylly', comment})
