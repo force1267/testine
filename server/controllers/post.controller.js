@@ -54,6 +54,8 @@ PostController.addPost = async (req, res) => {
         // newPost.content = sanitizeHtml(newPost.content)
 
         newPost.slug = slug(newPost.title.toLowerCase(), { lowercase: true })
+        newPost.tags = req.body.tags.replace(/\s/g, '').split(",")
+        newPost.en_tags = req.body.en_tags.replace(/\s/g, '').split(",")
         newPost.cuid = cuid()
 
         newPost.save((err, saved) => {

@@ -3,7 +3,7 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
      
-        <!-- TODO: use vuenotification notify to admin new comment -->
+        <!-- TODO: use vuenotification notify to admin every time we have new comment -->
       
       <div>
           <v-toolbar flat color="white">
@@ -181,7 +181,6 @@ export default {
         val || this.close()
       }
     },
-
   created () {
       this.initialize()
   },

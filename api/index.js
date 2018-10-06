@@ -15,6 +15,7 @@ export default {
     upload: (data) => axios.post('auth/upload', data) // sending data object containing user avatar to the server
   },
   comment:{
+    getAllForClient: (cuid) => axios.get('cmnts/client/', {params:{cuid: cuid}}), // get all comments related to a post_cuid for client side only!
     getComment: (cuid) => axios.get('comments/', {params:{cuid: cuid}}), // get a single comment
     fetchAll: () => axios.get('comments/all'), // get all comments from database
     updateComment: (data) => axios.put('comments/', data, {params: {cuid: data.cuid}}), // update a single comment; contain comment cuid

@@ -9,6 +9,11 @@ router.get('/all', (req, res) => {
     CommentController.getAll(req, res)
 })
 
+// Get all comments related to a post_cuid for client side only!
+router.get('/cmnts/client/:cuid', (req, res) => {
+    CommentController.getAllForClient(req, res)
+})
+
 // Get one comment by cuid
 router.get('/:cuid', (req, res) =>{
     CommentController.getComment(req,res)

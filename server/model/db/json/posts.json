@@ -1,30 +1,48 @@
 // post 1
 {
-    "_id" : ObjectId("5bac9486d401131824f1ac7f"),
+    "_id" : ObjectId("5bb7a73bd567d307a808b795"),
     "cover" : "0a32c887f005a0973a64bcf8fbb7d7651538036565310.png",
-    "title" : "اولین پست",
+    "tags" : [ 
+        "ویزا", 
+        "کانادا"
+    ],
+    "en_tags" : [ 
+        "visa", 
+        "canda"
+    ],
+    "title" : "پست اول",
     "en_title" : "first post",
-    "content" : "این یک تست است.",
-    "en_content" : "this is a test.",
-    "slug" : "اولین-پست",
+    "content" : "این خبر بسیار مهم است.",
+    "en_content" : "this is a very important post",
+    "slug" : "پست-اول",
     "en_slug" : "first-post",
-    "cuid" : "cjmkbfwd10000rowbcfy7917c",
-    "createdAt" : ISODate("2018-09-27T08:27:50.307Z"),
-    "updatedAt" : ISODate("2018-09-27T08:27:50.307Z"),
+    "cuid" : "cjmwbhuls0000igwbqrjh7pek",
+    "createdAt" : ISODate("2018-10-05T18:02:35.456Z"),
+    "updatedAt" : ISODate("2018-10-05T18:02:35.456Z"),
     "__v" : 0
 }
 // post 2
 {
-    "_id" : ObjectId("5bb5ca8e09e9562e640f4e59"),
-    "cover" : "0c49c887f015a0973a64bcf8fbb7d7681538036565310.png",
-    "title" : "دومین پست",
+    "_id" : ObjectId("5bb7a84a51f3d819a42ff8ec"),
+    "cover" : "0c49c887f015a0973a64bcf8fbb7d7681538036565310.jpg",
+    "tags" : [ 
+        "ویزا", 
+        "کانادا", 
+        "گواهنوشت"
+    ],
+    "en_tags" : [ 
+        "visa", 
+        "canda", 
+        "certificate"
+    ],
+    "title" : "پست دوم",
     "en_title" : "second post",
-    "content" : "این یک خبر خیلی مهم است",
-    "en_content" : "this is a very important news",
-    "slug" : "دومین-پست",
+    "content" : "این خبر باز به شدت مهم است",
+    "en_content" : "again this is so important news",
+    "slug" : "پست-دوم",
     "en_slug" : "second-post",
-    "cuid" : "cjmuauc3r00005wwbi8ib3ywl",
-    "createdAt" : ISODate("2018-10-04T08:08:46.095Z"),
-    "updatedAt" : ISODate("2018-10-04T08:08:46.095Z"),
+    "cuid" : "cjmwbnnxm00002cwb6mpo81hc",
+    "createdAt" : ISODate("2018-10-05T18:07:06.746Z"),
+    "updatedAt" : ISODate("2018-10-05T18:07:06.746Z"),
     "__v" : 0
 }

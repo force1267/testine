@@ -25,13 +25,13 @@ export const actions = {
     const { data } = await api.comment.fetchAll()
     commit('set_comment', data)
   },
-  getComment({commit}, cuid){
+  getComment({commit}, cuid){ // usefull in none single page mode
     return api.comment.getComment(cuid)
       .then(response=>{
         return response
       })
       .catch(error=>{
-        commit('reset_comment')
+        // commit('reset_comment')
         return error
       })
   },
@@ -46,15 +46,15 @@ export const actions = {
         return error
       })
   },
-  // dispatch from client side only!
+  // dispatch from client side only! and fill the state with fetched comments
   addComment({commit}, data){
     return api.comment.addComment(data)
       .then(response => {
-        // commit('set_comment', response.data.comments)
+        commit('set_comment', response.data.comments)
         return response
       })
       .catch(error=>{
-        // commit('reset_comment')
+        commit('reset_comment')
         return error
       })
   },
@@ -70,5 +70,16 @@ export const actions = {
         commit('reset_comment')
         return error
       })
+  },
+  // this action will load all related comments to a post_cuid for client side only!
+  // and show them using response object in your post vue
+  getAllForClient(cuid){
+    return api.comment.getAllForClient(cuid)
+    .then(response=>{
+      return response // get all comments in client side vue post using response object
+    })
+    .catch(error=>{
+      return error
+    })
   }
 }

@@ -17,6 +17,20 @@ const sanitizeHtml = require('sanitize-html')
 const cuid = require('cuid')
 const CommentController = {}
 
+
+// API to fetch all comments related to a post_cuid for client side only!
+CommentController.getAllForClient = async (req, res) => {
+    try{
+        await Comments.findOne({ post_cuid: req.params.cuid }).exec((err, comments) => {
+            if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+            return res.json({type:'success', message:'fetched successfully', comments })
+        })
+    }
+    catch(err){
+        return res.json({type:'error', message: 'Sorry! Bad Erorr, Try Again.', err})
+    }
+}
+
 // API route to get all comments
 CommentController.getAll = async (req, res) => {
     try{
@@ -63,7 +77,12 @@ CommentController.addComment = async (req, res) => {
 
         newComment.save((err, comment) => {
             if (err) return res.status(500).json({type: 'error', message:'Server error', err}) // eg: for required fields like post_cuid
-            return res.json({type:'success', message:'New Comment Saved Successfully!', comment })
+            // we return all comments in order to commit the comments state 
+            // again and feel the run-time manner in computed method!   
+            Comments.find().sort('-createdAt').exec((err, comments) => {
+                if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+                return res.json({type:'success', message:'added successfully', comments})
+            })
         })
     }
     catch (err) {
