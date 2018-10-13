@@ -15,11 +15,13 @@ export default {
     upload: (data) => axios.post('auth/upload', data) // sending data object containing user avatar to the server
   },
   comment:{
-    getAllForClient: (cuid) => axios.get('cmnts/client/', {params:{cuid: cuid}}), // get all comments related to a post_cuid for client side only!
-    getComment: (cuid) => axios.get('comments/', {params:{cuid: cuid}}), // get a single comment
+    getAllForClient: (cuid) => axios.get('cmnts/client/'+cuid), // get all comments related to a post_cuid for client side only!
+    getrelatedPost: (cuid) => axios.get('comments/'+cuid), // get a single post related to a comment cuid
     fetchAll: () => axios.get('comments/all'), // get all comments from database
-    updateComment: (data) => axios.put('comments/', data, {params: {cuid: data.cuid}}), // update a single comment; contain comment cuid
-    deleteComment: (cuid) => axios.delete('comments/', {params: {cuid: cuid}}), // delete a single comment
-    addComment: (data) => axios.post('comments/add-new', data) // add comment into database; only for clients
-  }
+    updateComment: (data) => axios.put('comments/'+data.cuid, data), // update a single comment; contain comment cuid
+    deleteComment: (cuid) => axios.delete('comments/'+cuid), // delete a single comment
+    addComment: (data) => axios.post('comments/add-new', data), // add comment into database; only for clients
+    submitComment: (cuid) => axios.put('comments/sbt-com/'+cuid), // update the status of comment to true to submit a comment
+    blockComment: (cuid) => axios.put('comments/blc-com/'+cuid) // update the status of comment to false to block a comment
+ }
 }

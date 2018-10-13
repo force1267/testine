@@ -129,7 +129,7 @@
               label="Bio"
               rows="1"
               required
-            ></v-textarea>
+            ></v-textarea> <!-- THINK ABOUT A PLACE TO PUT THE ADMIN BIO! -->
             <v-checkbox
               v-model="checkbox"
               :rules="[v => !!v || 'You must agree to continue!']"

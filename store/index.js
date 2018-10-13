@@ -60,8 +60,21 @@ export const actions = {
   }
 }
 
+
+
+
+
 /* Async functions can make use of the await expression. 
 This will pause the async function and wait for the Promise 
 to resolve prior to moving on. so we don't need .then and .catch inside async/await
 https://itnext.io/efficiently-understanding-and-using-nuxt-vuex-7905eb8858d6
+https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/
+https://blog.risingstack.com/node-hero-async-programming-in-node-js/
+https://hackernoon.com/javascript-promises-and-why-async-await-wins-the-battle-4fc9d15d509f
+https://medium.com/@tkssharma/writing-neat-asynchronous-node-js-code-with-promises-async-await-fa8d8b0bcd7c
+https://medium.com/@piotrkarpaa/async-await-and-parallel-code-in-node-js-6de6501eea48
+https://medium.com/platformer-blog/node-js-concurrency-with-async-await-and-promises-b4c4ae8f4510
+https://zeit.co/blog/async-and-await
+https://codeforgeek.com/2016/04/asynchronous-programming-in-node-js/
+https://medium.com/front-end-hacking/javascript-event-loop-explained-4cd26af121d4
 */

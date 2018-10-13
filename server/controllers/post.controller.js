@@ -47,6 +47,9 @@ PostController.addPost = async (req, res) => {
             res.status(403).end()
         }
 
+        // tags: req.body.tags.replace(/\s/g, '').split(","),
+        // en_tags: req.body.en_tags.replace(/\s/g, '').split(","),
+
         const newPost = new Post(req.body.post)
 
         // Let's sanitize inputs

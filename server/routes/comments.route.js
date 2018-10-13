@@ -16,7 +16,17 @@ router.get('/cmnts/client/:cuid', (req, res) => {
 
 // Get one comment by cuid
 router.get('/:cuid', (req, res) =>{
-    CommentController.getComment(req,res)
+    CommentController.getrelatedPost(req,res)
+})
+
+// submit a comment
+router.put('/sbt-com/:cuid', (req, res)=>{
+    CommentController.submitComment(req, res)
+})
+
+// block a comment
+router.put('/blc-com/:cuid', (req, res)=>{
+    CommentController.blockComment(req, res)
 })
 
 // Add a new comment
@@ -24,6 +34,7 @@ router.post('/add-new', (req, res) => {
     CommentController.addComment(req, res)
 })
 
+// update a comment
 router.put('/:cuid', (req, res) => {
     CommentController.updateComment(req, res)
 })

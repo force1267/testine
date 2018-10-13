@@ -1,12 +1,13 @@
 
 
-// we need to commit our state in each action otherwise 
-// won't have the run-time feature and computed method will be meaningless!
+// we need to commit our state in each action with updated data backed from the server 
+// otherwise won't have the run-time feature and computed method will be meaningless on recomputation process!
 
 import api from '~/api'
 
 export const state = () => ({
     list: null
+    // relpost: null
 })
 
 // fill the state
@@ -14,6 +15,12 @@ export const mutations = {
   set_comment (store, data) {
     store.list = data
   },
+  // set_post (store, data){
+  //   store.relpost = data
+  // },
+  // reset_post(store){
+  //   store.relpost = null
+  // },
   reset_comment (store) {
     store.list = null
   }
@@ -25,13 +32,14 @@ export const actions = {
     const { data } = await api.comment.fetchAll()
     commit('set_comment', data)
   },
-  getComment({commit}, cuid){ // usefull in none single page mode
-    return api.comment.getComment(cuid)
+  getrelatedPost({commit}, cuid){ // usefull in none single page mode to fetch single comment
+    return api.comment.getrelatedPost(cuid)
       .then(response=>{
+        // commit('set_post', response.data.post)
         return response
       })
       .catch(error=>{
-        // commit('reset_comment')
+        // commit('reset_post')
         return error
       })
   },
@@ -57,6 +65,29 @@ export const actions = {
         commit('reset_comment')
         return error
       })
+  },
+  submitComment({commit}, cuid){
+    return api.comment.submitComment(cuid)
+    .then(response=>{
+      commit('set_comment', response.data.comments)
+      return response
+    })
+    .catch(error=>{
+      commit('reset_comment')
+      return error
+    })
+  },
+  blockComment({commit}, cuid){
+    return api.comment.blockComment(cuid)
+    .then(response=>{
+      commit('set_comment', response.data.comments)
+      return response
+    })
+    .catch(error=>{
+      commit('reset_comment')
+      return error
+    })
+
   },
   deleteComment({commit}, cuid) {
     return api.comment.deleteComment(cuid)

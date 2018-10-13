@@ -21,7 +21,7 @@ const CommentController = {}
 // API to fetch all comments related to a post_cuid for client side only!
 CommentController.getAllForClient = async (req, res) => {
     try{
-        await Comments.findOne({ post_cuid: req.params.cuid }).exec((err, comments) => {
+        await Comments.find({ post_cuid: req.params.cuid }).exec((err, comments) => {
             if (err) return res.status(500).json({type: 'error', message:'Server error', err})
             return res.json({type:'success', message:'fetched successfully', comments })
         })
@@ -45,13 +45,17 @@ CommentController.getAll = async (req, res) => {
 }
 
 // API route to get a single comment and its post info
-CommentController.getComment = async (req, res) => {
+// you can use this route to fetch a single comment in single page mode
+// you can also send a single comment through json formating in res object
+// but for now we're calling it from the vue to load a single post 
+// related to a comment cuid and fill the post state
+CommentController.getrelatedPost = async (req, res) => {
     try{
         await Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
             if (err) return res.status(500).json({type: 'error', message:'Server error', err})
-            Posts.findOne({ cuid: comment.post_cuid }).exec((err, post) => {
+            Posts.findOne({ cuid: comment.post_cuid }, 'title').exec((err, post) => {
                 if (err) return res.status(500).json({type: 'error', message:'Server error', err})
-                return res.json({type:'success', message:'fetched successfully', comment, post })
+                return res.json({type:'success', message:'fetched successfully', post}) // you can also send the comment document in Comments.findOne callback through json formating
             })
         })
     }
@@ -104,11 +108,9 @@ CommentController.updateComment = async (req, res) => {
                 comment.name = sanitizeHtml(req.body.name) || comment.name
                 comment.email = sanitizeHtml(req.body.email) || comment.email
                 comment.content = sanitizeHtml(req.body.content) || comment.content // if content is empty we can't be here but we're considering the worst case!
-                comment.status = req.body.status || comment.status
                 // Save the updated document back to the database
                 comment.save((err, comment) => {
                     if (err) return res.status(500).json({type: 'error', message:'Server error', err})
-
                     // we return all comments in order to commit the comments state 
                     // again and feel the run-time manner in computed method!   
                     Comments.find().sort('-createdAt').exec((err, comments) => {
@@ -143,6 +145,61 @@ CommentController.deleteComment = async (req, res) => {
     catch (err) {
         return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
     }
+}
+
+// API route to submit a comment
+CommentController.blockComment = async (req, res) => {
+    try{
+        Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
+            // Handle any possible database errors
+            if (err) {
+                return res.status(500).json({type: 'error', message:'Server error', err})
+            } else {
+                comment.status = false
+                // Save the updated document back to the database
+                comment.save((err, comment) => {
+                    if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+                    // we return all comments in order to commit the comments state 
+                    // again and feel the run-time manner in computed method!   
+                    Comments.find().sort('-createdAt').exec((err, comments) => {
+                        if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+                        return res.json({type:'success', message:'updated successfully', comments})
+                    })
+                })
+            }
+        })
+    }
+    catch{
+        return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
+    }
+}
+
+// API route to block a comment
+CommentController.submitComment = async(req, res) =>{
+    try{
+        Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
+            // Handle any possible database errors
+            if (err) {
+                return res.status(500).json({type: 'error', message:'Server error', err})
+            } else {
+                comment.status = true
+                // Save the updated document back to the database
+                comment.save((err, comment) => {
+                    if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+                    // we return all comments in order to commit the comments state 
+                    // again and feel the run-time manner in computed method!   
+                    Comments.find().sort('-createdAt').exec((err, comments) => {
+                        if (err) return res.status(500).json({type: 'error', message:'Server error', err})
+                        return res.json({type:'success', message:'updated successfully', comments})
+                    })
+                })
+            }
+        })
+    }
+    catch{
+        return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
+    }
+
 }
 
 module.exports = CommentController
