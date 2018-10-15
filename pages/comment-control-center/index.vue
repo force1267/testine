@@ -3,10 +3,11 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
      
-        <!-- TODO: use vuenotification notify to admin every time we have new comment -->
-      
-        {{commentList}}
-
+        <!-- TODO: use vuenotification notify to admin every time we have new comment 
+             TODO: complete computed method issue => No data available
+             TODO: action button tooltip issue  
+          -->
+  
       <div>
 
         <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
@@ -33,10 +34,12 @@
                   <span class="headline">{{formTitle}}</span>
                 </v-card-title>
         
-
                 <v-card-text>
                   <v-container grid-list-md>
                     <v-layout wrap>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="postTitle" label="Post Title" :disabled="ok"></v-text-field>
+                      </v-flex>
                       <v-flex xs12 sm6 md4>
                         <v-text-field v-model="editedItem.cuid" label="CUID" :disabled="ok"></v-text-field>
                       </v-flex>
@@ -69,7 +72,7 @@
           </v-toolbar>
           <v-data-table
             :headers="headers"
-            :items="comments"
+            :items="commentList.comments"
             :search="search"
             hide-actions
             class="elevation-1"
@@ -107,7 +110,7 @@
                 >
                   block
                 </v-icon>
-                <span>block this comment</span>
+                <span>Block Me!</span>
               </v-tooltip>
               <v-tooltip bottom>
                 <v-icon v-if="props.item.status==true"
@@ -118,7 +121,7 @@
                 >
                   beenhere
                 </v-icon>
-                <span>submit this comment</span>
+                <span>Submit Me!</span>
               </v-tooltip>
               </td>
             </template>
@@ -148,13 +151,8 @@ export default {
       ok: true,
       alert: null,
       dialog: false,
+      postTitle: '',
       headers: [
-        // {
-        //   text: 'Comment Control Center',
-        //   align: 'left',
-        //   sortable: false,
-        //   value: 'name'
-        // },
         { text: 'CUID', value: 'cuid' },
         { text: 'ID', value: '_id' },
         { text: 'Name', value: 'name' },
@@ -166,7 +164,6 @@ export default {
         { text: 'Actions', value: 'name', sortable: false }
       ],
       comments: null,
-      editedIndex: -1,
       editedItem: {
         cuid: '',
         _id: '',
@@ -177,16 +174,6 @@ export default {
         createdAt: '',
         updatedAt: ''
 
-      },
-      defaultItem: {
-        cuid: '',
-        _id: '',
-        name: '',
-        post_cuid: '',
-        email: '',
-        content: '',
-        createdAt: '',
-        updatedAt: ''
       }
    }
   },
@@ -201,14 +188,13 @@ export default {
     commentList(){ // where should i call this according to the structure that i have here ???
       // console.log(this.$store.state.comments.list)
       if(this.$store.state.comments){
-        this.comments = this.$store.state.comments.list.comments 
-        // return this.$store.state.comments.list
+        return this.$store.state.comments.list 
       }
       else return null
       //  return this.$store.state.comments ? this.$store.state.comments.list : null
     },
     formTitle () {
-        return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+        return 'Edit Item'
     }
   },
   watch: {
@@ -227,19 +213,18 @@ export default {
         // we'll use the response object backed from the store(api) to show the post infos related to a comment cuid in comment dialog
         // we're not gonna edit the post we're gonna just show the post cover and title related to a comment cuid so best method is fetching on edit button click  
           this.$store.dispatch('comments/getrelatedPost', item.cuid).then((result)=>{
-            console.log(result.data) // we're gonna show only post title related to a comment in our dialog 
+            this.postTitle = result.data.post.title // we're gonna show only post title related to a comment in our dialog
           }).catch(error=>{ // if everythig went wrong client should call us !
             if (error.response && error.response.data) {
                   this.alert = {type: 'error', message: error.response.data.message || error.response.status}
             }
         })
           
-          this.editedIndex = this.comments.indexOf(item)
           this.editedItem = Object.assign({}, item)
           this.dialog = true
 
       },
-
+      // delete a comment
       deleteItem (cuid) {
         // const index = this.comments.indexOf(item)
         confirm('Are you sure you want to delete this comment?') && this.$store.dispatch('comments/deleteComment', cuid).then((result)=>{
@@ -249,6 +234,7 @@ export default {
             }
         })
       },
+      // submit a comment
       submitItem (cuid) {
         this.$store.dispatch('comments/submitComment', cuid).then((result)=>{
         }).catch(error=>{ // if everythig went wrong client should call us !
@@ -257,6 +243,7 @@ export default {
             }
         })
       },
+      // block a comment
       blockItem (cuid) {
         this.$store.dispatch('comments/blockComment', cuid).then((result)=>{
         }).catch(error=>{ // if everythig went wrong client should call us !
@@ -265,25 +252,19 @@ export default {
             }
         })
       },
+      // close the dialog
       close () {
         this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
-          this.editedIndex = -1
-        }, 300)
       },
+      // save an edited comment
       save (item) {
-        if (this.editedIndex > -1) {
-          Object.assign(this.comments[this.editedIndex], this.editedItem)
-        } else {
           this.$store.dispatch('comments/updateComment', item).then((result)=>{
           }).catch(error=>{ // if everythig went wrong client should call us !
             if (error.response && error.response.data) {
                   this.alert = {type: 'error', message: error.response.data.message || error.response.status}
             }
-        })
-          // this.comments.push(this.editedItem)
-        }
+         })
+
         this.close()
       }
   },

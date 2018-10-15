@@ -4,7 +4,7 @@
             
             
             about us and contact us info and its messages with email sending feature to those messages(users opinion) - FAQ => use ckeditor
-            setup head() for seo - use auth store and its user state to bind user.email in email field - social media links
+            setup head() for seo - use auth store and its user state to bind admin user.email in email field - social media links
             https://gist.github.com/lancejpollard/1978404
   
      <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
