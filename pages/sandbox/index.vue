@@ -8,6 +8,7 @@
               https://vuetifyjs.com/en/directives/ripples#example-custom-ripple
               setup head() for seo => https://gist.github.com/lancejpollard/1978404
               use vuetify sandbox page => https://vuetifyjs.com/en/examples/layouts/sandbox
+              use props vue feature to build the whole sandbox(or use store)
   
      <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
   

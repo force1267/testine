@@ -4,8 +4,6 @@
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
      
         <!-- TODO: use vuenotification notify to admin every time we have new comment 
-             TODO: complete computed method issue => No data available
-             TODO: action button tooltip issue  
           -->
   
       <div>
@@ -80,8 +78,8 @@
             <template slot="items" slot-scope="props">
               <td>{{ props.item.cuid }}</td>
               <td class="text-xs-right">{{ props.item._id }}</td>
-              <td class="text-xs-right">{{ props.item.name }}</td>
               <td class="text-xs-right">{{ props.item.post_cuid }}</td>
+              <td class="text-xs-right">{{ props.item.name }}</td>
               <td class="text-xs-right">{{ props.item.email }}</td>
               <td class="text-xs-right">{{ props.item.content }}</td>
               <td class="text-xs-right"><timeago :datetime="props.item.createdAt" :auto-update="60"></timeago></td>
@@ -104,7 +102,7 @@
               <v-tooltip bottom>
                 <v-icon v-if="props.item.status==false"
                   small
-                  class="red--text"
+                  class="red--text mt-3"
                   slot="activator"
                   @click="submitItem(props.item.cuid)"
                 >
@@ -116,7 +114,7 @@
                 <v-icon v-if="props.item.status==true"
                   small
                   slot="activator"
-                  class="green--text"
+                  class="green--text mt-3"
                   @click="blockItem(props.item.cuid)"
                 >
                   beenhere
@@ -155,9 +153,9 @@ export default {
       headers: [
         { text: 'CUID', value: 'cuid' },
         { text: 'ID', value: '_id' },
-        { text: 'Name', value: 'name' },
         { text: 'Post Cuid', value: 'post_cuid' },
-        { text: 'E-mail', value: 'post_cuid' },
+        { text: 'Name', value: 'name' },
+        { text: 'E-mail', value: 'email' },
         { text: 'Content', value: 'content' },
         { text: 'Created At', value: 'createdAt' },
         { text: 'Updated At', value: 'updatedAt' },

@@ -46,7 +46,7 @@ export const actions = {
   updateComment({commit}, data){
     return api.comment.updateComment(data)
       .then(response => {
-        commit('set_comment', response.data.comments)
+        commit('set_comment', response.data)
         return response
       })
       .catch(error=>{
@@ -58,7 +58,7 @@ export const actions = {
   addComment({commit}, data){
     return api.comment.addComment(data)
       .then(response => {
-        commit('set_comment', response.data.comments)
+        commit('set_comment', response.data)
         return response
       })
       .catch(error=>{
@@ -69,7 +69,7 @@ export const actions = {
   submitComment({commit}, cuid){
     return api.comment.submitComment(cuid)
     .then(response=>{
-      commit('set_comment', response.data.comments)
+      commit('set_comment', response.data)
       return response
     })
     .catch(error=>{
@@ -80,7 +80,7 @@ export const actions = {
   blockComment({commit}, cuid){
     return api.comment.blockComment(cuid)
     .then(response=>{
-      commit('set_comment', response.data.comments)
+      commit('set_comment', response.data)
       return response
     })
     .catch(error=>{
@@ -94,7 +94,7 @@ export const actions = {
       .then(response => {
         // commit the comments state to all comments after remove the desired one! to feel the run-time manner that we talked about it ;-)
         // so the computed method can recompute any change and show the comments without refreshing the page.
-        commit('set_comment', response.data.comments)
+        commit('set_comment', response.data)
         return response
       })
       .catch(error=>{
