@@ -6,7 +6,7 @@
    multilingual setup(https://medium.com/@allenhwkim/multiple-language-with-nuxt-vuejs-efc3dad45eac)
    setup seo head() => https://gist.github.com/lancejpollard/1978404 and youtube videos and https://www.npmjs.com/package/express-robots
    write contract for middle prices and support time(use ur support app for cds proj just see wocfulab.todo to know how to create it!)
-   see wocfulab.todo for security issues for admin panel - append the woshi name at the footer
+   see wocfulab.todo for security issues for admin panel - append the wocam name at the footer - social media links
    use vue loader component to wait to load data of a page component from the back-end like youtube style using github.com/f/vue-wait => only on client side
     ezapply.ir
     visamondial.com

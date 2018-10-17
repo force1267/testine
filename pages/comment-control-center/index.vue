@@ -3,7 +3,8 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
      
-        <!-- TODO: use vuenotification notify to admin every time we have new comment 
+        <!-- TODO: use vuenotification notify to admin every time we have new comment => https://www.npmjs.com/package/vue-notification
+             TODO: update comment error handling issue => doesn't show the alert
           -->
   
       <div>
@@ -76,9 +77,9 @@
             class="elevation-1"
           >
             <template slot="items" slot-scope="props">
-              <td>{{ props.item.cuid }}</td>
-              <td class="text-xs-right">{{ props.item._id }}</td>
-              <td class="text-xs-right">{{ props.item.post_cuid }}</td>
+              <!-- <td>{{ props.item.cuid }}</td>
+              <td class="text-xs-right">{{ props.item._id }}</td> -->
+              <!-- <td class="text-xs-right">{{ props.item.post_cuid }}</td> -->
               <td class="text-xs-right">{{ props.item.name }}</td>
               <td class="text-xs-right">{{ props.item.email }}</td>
               <td class="text-xs-right">{{ props.item.content }}</td>
@@ -102,24 +103,24 @@
               <v-tooltip bottom>
                 <v-icon v-if="props.item.status==false"
                   small
-                  class="red--text mt-3"
+                  class="green--text mt-3"
                   slot="activator"
                   @click="submitItem(props.item.cuid)"
                 >
-                  block
+                  beenhere
                 </v-icon>
-                <span>Block Me!</span>
+                <span>Submit Me!</span>
               </v-tooltip>
               <v-tooltip bottom>
                 <v-icon v-if="props.item.status==true"
                   small
                   slot="activator"
-                  class="green--text mt-3"
+                  class="red--text mt-3"
                   @click="blockItem(props.item.cuid)"
                 >
-                  beenhere
+                  block
                 </v-icon>
-                <span>Submit Me!</span>
+                <span>Block Me!</span>
               </v-tooltip>
               </td>
             </template>
@@ -151,9 +152,9 @@ export default {
       dialog: false,
       postTitle: '',
       headers: [
-        { text: 'CUID', value: 'cuid' },
-        { text: 'ID', value: '_id' },
-        { text: 'Post Cuid', value: 'post_cuid' },
+        // { text: 'CUID', value: 'cuid' },
+        // { text: 'ID', value: '_id' },
+        // { text: 'Post Cuid', value: 'post_cuid' },
         { text: 'Name', value: 'name' },
         { text: 'E-mail', value: 'email' },
         { text: 'Content', value: 'content' },
@@ -192,7 +193,7 @@ export default {
       //  return this.$store.state.comments ? this.$store.state.comments.list : null
     },
     formTitle () {
-        return 'Edit Item'
+        return 'Edit Comment'
     }
   },
   watch: {
