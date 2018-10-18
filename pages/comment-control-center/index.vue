@@ -2,11 +2,7 @@
 <template>
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
-     
-        <!-- TODO: use vuenotification notify to admin every time we have new comment => https://www.npmjs.com/package/vue-notification
-             TODO: update comment error handling issue => doesn't show the alert
-          -->
-  
+    
       <div>
 
         <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
@@ -46,10 +42,10 @@
                         <v-text-field v-model="editedItem._id" label="ID" :disabled="ok"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
+                        <v-text-field v-model="editedItem.post_cuid" label="Post Cuid" :disabled="ok"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.post_cuid" label="Post Cuid" :disabled="ok"></v-text-field>
+                        <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
                         <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
@@ -162,7 +158,6 @@ export default {
         { text: 'Updated At', value: 'updatedAt' },
         { text: 'Actions', value: 'name', sortable: false }
       ],
-      comments: null,
       editedItem: {
         cuid: '',
         _id: '',

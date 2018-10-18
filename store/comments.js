@@ -54,7 +54,8 @@ export const actions = {
         return error
       })
   },
-  // dispatch from client side only! and fill the state with fetched comments
+  // dispatch from client side only! and fill the state with fetched comments 
+  // so the ccc section will update with the whole bunch of new comments in a real-time manner
   addComment({commit}, data){
     return api.comment.addComment(data)
       .then(response => {

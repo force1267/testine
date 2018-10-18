@@ -18,7 +18,8 @@ const cuid = require('cuid')
 const CommentController = {}
 
 
-// API to fetch all comments related to a post_cuid for client side only!
+// API to fetch all comments related to a post_cuid for client side only! 
+// we need a state for this one to fill it only with those comments which are related to a post_cuid
 CommentController.getAllForClient = async (req, res) => {
     try{
         await Comments.find({ post_cuid: req.params.cuid }).exec((err, comments) => {
@@ -82,7 +83,8 @@ CommentController.addComment = async (req, res) => {
         newComment.save((err, comment) => {
             if (err) return res.status(500).json({type: 'error', message:'Server error', err}) // eg: for required fields like post_cuid
             // we return all comments in order to commit the comments state 
-            // again and feel the run-time manner in computed method!   
+            // again and feel the run-time manner in computed method! 
+            // so the adming can see every new comment comming from the db    
             Comments.find().sort('-createdAt').exec((err, comments) => {
                 if (err) return res.status(500).json({type: 'error', message:'Server error', err})
                 return res.json({type:'success', message:'added successfully', comments})
@@ -97,7 +99,7 @@ CommentController.addComment = async (req, res) => {
 // API route to update a single comment
 CommentController.updateComment = async (req, res) => {
     try {
-        if (!req.body.content) return res.status(403).json({type: 'error', message: 'content fields is essential for update.'})
+        // if (!req.body.content) return res.status(403).json({type: 'error', message: 'content fields is essential for update.'})
         Comments.findOne({ cuid: req.params.cuid }).exec((err, comment) => {
             // Handle any possible database errors
             if (err) {

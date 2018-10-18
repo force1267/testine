@@ -107,6 +107,7 @@
           { icon: 'devices', title: 'Sandbox', to: '/sandbox' },
           { icon: 'security', title: 'Security Policy', to: '/cds-setup' },
           { icon: 'bubble_chart', title: 'Modules', to: '/modules' },
+          { icon: 'search', title: 'Seo Setup', to: '/seo-setup' },
           { icon: 'import_contacts', title: 'Magazine Control Center', to: '/magazine-control-center' },
           { icon: 'comment', title: 'Comment Control Center', to: '/comment-control-center' },
           { icon: 'question_answer', title: 'Answer Question Control Center', to: '/answer-question-control-center' },

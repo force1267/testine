@@ -25,10 +25,11 @@ export default function ({store, redirect, route}) {
     const ABR = /^\/abroad-control-center(\/|$)/.test(route.fullPath)
     const csR = /^\/cando-services(\/|$)/.test(route.fullPath)
     const certsR = /^\/certificate-control-center(\/|$)/.test(route.fullPath)
+    const seoR = /^\/seo-setup(\/|$)/.test(route.fullPath)
     
     const urlRequiresNonAuth = /^\/login(\/|$)/.test(route.fullPath)
 
-    if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || sandboxR || AQR || commentsR || scR || ciR || ABR || csR || certsR)) {
+    if (!userIsLoggedIn && (cdsSetupR || postsR || modulesR || sandboxR || AQR || commentsR || scR || ciR || ABR || csR || certsR || seoR)) {
       return redirect('/login') // unauthorized access!
     }
     if (userIsLoggedIn && urlRequiresNonAuth) {
