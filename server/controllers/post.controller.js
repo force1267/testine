@@ -3,9 +3,10 @@
 * Post Controller
 */
 // TODO: use upload.single('file') for post cover
+// TODO: use comment schema to show the number of comments for a single post
 const Post = require('../model/schema/post')
+const Comments = require('../model/schema/comment')
 const cuid = require('cuid')
-const slug = require('limax')
 const sanitizeHtml = require('sanitize-html') // or use xss
 const PostController = {}
 

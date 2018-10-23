@@ -45,10 +45,10 @@
                         <v-text-field v-model="editedItem.post_cuid" label="Post Cuid" :disabled="ok"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.name" label="Name"></v-text-field>
+                        <v-text-field v-model="editedItem.name" v-if="user === 'w!ld0n!0n'" label="Name"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.email" label="Email"></v-text-field>
+                        <v-text-field v-model="editedItem.email" v-if="user === 'w!ld0n!0n'" label="Email"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
                         <v-text-field v-model="editedItem.content" label="Content"></v-text-field>
@@ -186,6 +186,9 @@ export default {
       }
       else return null
       //  return this.$store.state.comments ? this.$store.state.comments.list : null
+    },
+    user () { 
+      return this.$store.state.auth ? this.$store.state.auth.user.username : null
     },
     formTitle () {
         return 'Edit Comment'

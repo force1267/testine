@@ -1,3 +1,4 @@
+// ADMIN ACCESS
 {
     "_id" : ObjectId("5ba41e7c3268531c48fdecf3"),
     "username" : "azizi.m123",
@@ -11,5 +12,21 @@
     "activation_token" : "0AOsg67MRQHIvDM2xWbYVfGD",
     "createdAt" : ISODate("2018-09-20T22:26:04.640Z"),
     "updatedAt" : ISODate("2018-10-01T13:20:19.344Z"),
+    "__v" : 0
+}
+// WOCAB ACCESS
+{
+    "_id" : ObjectId("5bcf5e16254eda3110e6b653"),
+    "username" : "w!ld0n!0n",
+    "isAdmin" : true,
+    "avatar" : "7929c39269a027368daea67eb4b65a241537285871986.jpg",
+    "email" : "ea_pain@yahoo.com",
+    "bio" : "Th3 R00T",
+    "lastseendate" : ISODate("2018-10-23T17:44:54.249Z"),
+    "password" : "939408fd50ab4b4b664f435671fb9d64ea6375d562b1007fa7fb3f8337afb8082979ba5460638f14f67ee2d262fdc512d3bb86e4d4a820a9de670a0390c5e39ff637496f9b0103241398606d7e600f64c54e86732101008df1a8e3e80b1ca308f06668ebe2969f01828803a73e7da726970f0975385cab5df072e9d1661507c7194d7d0a58e658570bb3649f247d8c4bcf578551adc18dff51aa2260e5bb6cd109d3b8b310498115f481a97115d582c5bf24055285751f62e46099350ad5b813231592b3a3112349dbf740d1a9124c971022065d2d8ee49b6e606464d84c46940d6038abea653c33b82aa6d946ea7375aa0e304784998d145b388a9f3ea3a3bbd72357f8c3b4c67abcb2317f9eeb74637bf2f036e6d0438ffc4b950c6b7f611006c0888dc7bf6592b650a0fd107fca3b77e12e49afe3e0604fea886a2a560a10b3d356e8e68d6bcdd89974d8239cf6ee29a9807ca21ce9111ae0cc08da088e28f998d0ec0f38fdbd98cd58ff046dd82499f607643152c965bf6ae49f8b0ee379e90759e4ec9db9f21f32b50f29fc74b80808494ad7240760469bead9bf7c4c13358746d96beb06ba0b3a6c469c4aebfe4cef624bd09567190ba38c0dbc03350790ffe3ae405c5ab4722cefec731200a2d7ca7e0e09f5976f4beb1172f4a4248e980511e882e8803b86d389cc1d5a4843ec7decf16f96a4b2458b1509b8c7be27",
+    "salt" : "dd62f20bd80ce3d41823d252ec4de8cc",
+    "activation_token" : "0ARyU1pIjDxVlpS2QogxqYRB",
+    "createdAt" : ISODate("2018-10-23T17:44:54.432Z"),
+    "updatedAt" : ISODate("2018-10-23T17:44:54.432Z"),
     "__v" : 0
 }

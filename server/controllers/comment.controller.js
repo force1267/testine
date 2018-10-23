@@ -84,7 +84,8 @@ CommentController.addComment = async (req, res) => {
             if (err) return res.status(500).json({type: 'error', message:'Server error', err}) // eg: for required fields like post_cuid
             // we return all comments in order to commit the comments state 
             // again and feel the run-time manner in computed method! 
-            // so the adming can see every new comment comming from the db    
+            // so the admin can see every new comment comming from the 
+            // db without refreshing the page or waiting for a notif    
             Comments.find().sort('-createdAt').exec((err, comments) => {
                 if (err) return res.status(500).json({type: 'error', message:'Server error', err})
                 return res.json({type:'success', message:'added successfully', comments})
