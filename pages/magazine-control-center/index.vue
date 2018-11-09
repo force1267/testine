@@ -2,11 +2,7 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
             
-              <!-- live search, like, tag and pagination - also show all comments for a single post in its page
-              use ckeditor - use post tags in main site inside seo head for better seo performance
-              create a comment component and bind post._id as a props on its attribute from inside _id.vue
-              then in comment component disptach all comments related to that post and show them in vue 
-              finally load the comment component in _id.vue(comment container)
+              <!-- like - also show all comments for a single post in its page => use a component
               https://vuetifyjs.com/en/components/data-tables#example-crud -->
      
       

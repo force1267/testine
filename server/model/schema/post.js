@@ -14,6 +14,7 @@ const postSchema = new Schema({
     en_slug: { type: String, required: true },
     cover: {type: String, type: String, default: '' },
     tags: [String],
+    status: {type: Boolean, default: true},
     en_tags: [String],
     cuid: { type: String, required: true } // use instead of _id
 }, {timestamps: true})

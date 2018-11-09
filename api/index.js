@@ -23,5 +23,15 @@ export default {
     addComment: (data) => axios.post('comments/add-new', data), // add comment into database; only for clients
     submitComment: (cuid) => axios.put('comments/sbt-com/'+cuid), // update the status of comment to true to submit a comment
     blockComment: (cuid) => axios.put('comments/blc-com/'+cuid) // update the status of comment to false to block a comment
+ },
+ post:{
+  getrelatedComments: (cuid) => axios.get('posts/cmnts/admin/'+cuid), // get all comments related to a single post
+   fetchAll: () => axios.get('posts/all'), // get all posts
+   getPost: (cuid) => axios.get('posts/'+cuid), // get a single post for client side only!
+   addPost: (data) => axios.post('posts/add-new', data), // add a new post by admin only!
+   updatePost: (data) => axios.put('posts/'+data.cuid, data), // update a single post
+   deletePost: (cuid) => axios.delete('posts/'+cuid), // delete a single post
+   submitPost: (cuid) => axios.post('post/eble-pst'+cuid), // enable a single post
+   blockPost: (cuid) => axios.post('post/dsble-pst'+cuid) // disable a single post
  }
 }

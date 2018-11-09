@@ -15,7 +15,7 @@ export default function ({store, redirect, route}) {
     const userIsLoggedIn = !!store.state.auth.user
     // client must be authorized to access below resources
     const cdsSetupR = /^\/cds-setup(\/|$)/.test(route.fullPath)
-    const postsR = /^\/magazine-control-center(\/|$)/.test(route.fullPath) // TODO: set auth middleware for post id!
+    const postsR = /^\/magazine-control-center(\/|$)/.test(route.fullPath)
     const commentsR = /^\/comment-control-center(\/|$)/.test(route.fullPath)
     const modulesR = /^\/modules(\/|$)/.test(route.fullPath)
     const sandboxR = /^\/sandbox(\/|$)/.test(route.fullPath)
