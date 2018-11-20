@@ -15,7 +15,7 @@ export default {
     upload: (data) => axios.post('auth/upload', data) // sending data object containing user avatar to the server
   },
   comment:{
-    getAllForClient: (cuid) => axios.get('cmnts/client/'+cuid), // get all comments related to a post_cuid for client side only!
+    getAllForClient: (cuid) => axios.get('comments/cmnts/client/'+cuid), // get all comments related to a post_cuid for client side only!
     getrelatedPost: (cuid) => axios.get('comments/'+cuid), // get a single post related to a comment cuid
     fetchAll: () => axios.get('comments/all'), // get all comments from database
     updateComment: (data) => axios.put('comments/'+data.cuid, data), // update a single comment; contain comment cuid
@@ -31,7 +31,7 @@ export default {
    addPost: (data) => axios.post('posts/add-new', data), // add a new post by admin only!
    updatePost: (data) => axios.put('posts/'+data.cuid, data), // update a single post
    deletePost: (cuid) => axios.delete('posts/'+cuid), // delete a single post
-   submitPost: (cuid) => axios.post('post/eble-pst'+cuid), // enable a single post
-   blockPost: (cuid) => axios.post('post/dsble-pst'+cuid) // disable a single post
+   submitPost: (cuid) => axios.put('posts/able-pst/'+cuid), // enable a single post
+   blockPost: (cuid) => axios.put('posts/dsble-pst/'+cuid) // disable a single post
  }
 }
