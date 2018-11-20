@@ -105,9 +105,7 @@
                 >
                   beenhere
                 </v-icon>
-                <span>Submit Me!</span>
-              </v-tooltip>
-              <v-tooltip bottom>
+                <span v-if="props.item.status==false">Submit Me!</span>
                 <v-icon v-if="props.item.status==true"
                   small
                   slot="activator"
@@ -116,7 +114,7 @@
                 >
                   block
                 </v-icon>
-                <span>Block Me!</span>
+                <span v-if="props.item.status==true">Block Me!</span>
               </v-tooltip>
               </td>
             </template>
@@ -146,6 +144,7 @@ export default {
       ok: true,
       alert: null,
       dialog: false,
+      active: false,
       postTitle: '',
       headers: [
         // { text: 'CUID', value: 'cuid' },
