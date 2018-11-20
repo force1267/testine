@@ -65,11 +65,9 @@ PostController.addPost = async (req, res) => {
             !req.body.en_tags ||
             !req.file.filename) return res.status(403).json({type: 'error', message: 'all credentials are required!'})
         
-            
-        // TODO: use sanitizeHtml for titles and tags
         Post = new Post({
-            title: req.body.title,
-            en_title: req.body.en_title,
+            title: sanitizeHtml(req.body.title),
+            en_title: sanitizeHtml(req.body.en_title),
             content: req.body.content,
             en_content: req.body.en_content,
             slug: req.body.title.replace(/ /g,"-"),
@@ -97,13 +95,13 @@ PostController.addPost = async (req, res) => {
 // API route to update a post
 PostController.updatePost = async (req, res) => {
     try {
-        if (!req.body.title || 
-            !req.body.en_title || 
-            !req.body.content || 
-            !req.body.en_content ||
-            !req.body.tags ||
-            !req.body.en_tags ||
-            !req.file.filename) return res.status(403).json({type: 'error', message: 'all credentials are required!'})
+        // if (!req.body.title || 
+        //     !req.body.en_title || 
+        //     !req.body.content || 
+        //     !req.body.en_content ||
+        //     !req.body.tags ||
+        //     !req.body.en_tags ||
+        //     !req.file.filename) return res.status(403).json({type: 'error', message: 'all credentials are required!'})
 
         Post.findOne({ cuid: req.params.cuid }).exec((err, post) => {
             // Handle any possible database errors
@@ -111,18 +109,17 @@ PostController.updatePost = async (req, res) => {
              else {
                 // Update each attribute with any possible attribute that may have been submitted in the body of the request
                 // If that attribute isn't in the request body, default back to whatever it was before.
-                // TODO: use sanitizeHtml for titles and tags
-                post.title = req.body.title || post.title
+                post.title = sanitizeHtml(req.body.title) || post.title
                 post.slug = req.body.title.replace(/ /g,"-") || post.slug // in those case that title and en_title are empty!
                 post.en_slug = slug(req.body.en_title.toLowerCase(), { lowercase: true }) || post.en_slug
-                post.en_title = req.body.en_title || post.en_title
+                post.en_title = sanitizeHtml(req.body.en_title) || post.en_title
                 post.content = req.body.content || post.content
                 post.en_content = req.body.en_content || post.en_content
                 post.tags = req.body.tags.replace(/\s/g, '').split(",") || post.tags
                 post.en_tags = req.body.en_tags.replace(/\s/g, '').split(",") || post.en_tags
                 post.cover = req.file.filename || post.cover
                 // Save the updated document back to the database
-                Post.save((err, post) => {
+                post.save((err, post) => {
                     if (err) return res.status(500).json({type: 'error', message:'Server error', err})
                     // we return all posts in order to commit the posts state 
                     // again and feel the run-time manner in computed method!   
@@ -170,7 +167,7 @@ PostController.blockPost = async (req, res) => {
             } else {
                 post.status = false
                 // Save the updated document back to the database
-                Post.save((err, post) => {
+                post.save((err, post) => {
                     if (err) return res.status(500).json({type: 'error', message:'Server error', err})
                     // we return all posts in order to commit the posts state 
                     // again and feel the run-time manner in computed method!   
@@ -197,7 +194,7 @@ PostController.submitPost = async(req, res) =>{
             } else {
                 post.status = true
                 // Save the updated document back to the database
-                Post.save((err, post) => {
+                post.save((err, post) => {
                     if (err) return res.status(500).json({type: 'error', message:'Server error', err})
                     // we return all posts in order to commit the posts state 
                     // again and feel the run-time manner in computed method!   

@@ -15,6 +15,7 @@
 
 
     CDS-FINAL-TOUCH:
+    ENV VARIABLE FOR SERVER SECRET KEY
     support(todo) app for CDS (multi-platform jwt rest api/graphql based with video and voice call streaming feature)[create-nuxt-app(nuxtv2), nuxt-electron(use express stuff as serverMiddleware or python tornado/flask), flutter] => see wocfulab.todo for more details
     remove debuggingAPI folder or ignore it when u'r pulling the proj on vps for security reasons
     At the web server level, require SSL with a verified client certificate

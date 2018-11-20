@@ -24,20 +24,20 @@ export const mutations = {
 }
 
 export const actions = {
-async fetch ({ commit }) {
-    const { data } = await api.post.fetchAll()
-    commit('set_post', data)
-    },
+  async fetch ({ commit }) {
+      const { data } = await api.post.fetchAll()
+      commit('set_post', data)
+      },
 
     // get them with response object in admin side vue ; don't use any state in here to save the fetched comments
     getrelatedComments({commit}, cuid){ // usefull in none single page mode to fetch all comments related to a post
         return api.post.getrelatedComments(cuid)
           .then(response=>{
-            // commit('set_post', response.data.post)
+            // commit('set_com', response.data.post)
             return response
           })
           .catch(error=>{
-            // commit('reset_post')
+            // commit('reset_com')
             return error
           })
       },

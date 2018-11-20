@@ -2,11 +2,14 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
             
-              <!-- like - also show all comments for a single post in its page => use a component
-              https://vuetifyjs.com/en/components/data-tables#example-crud -->
+              <!-- also show all comments for a single post in its page => use a component 
+                   use a component to upload the cover(get help from UploadFile.vue component)
+              -->
      
-      
       <div>
+
+        <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
+
           <v-toolbar flat color="white">
             <v-toolbar-title>Post CRUD</v-toolbar-title>
             <v-divider
@@ -30,7 +33,6 @@
                   <span class="headline">{{formTitle}}</span>
                 </v-card-title>
         
-
                 <v-card-text>
                   <v-container grid-list-md>
                     <v-layout wrap>
@@ -66,17 +68,19 @@
           </v-toolbar>
           <v-data-table
             :headers="headers"
-            :items="desserts"
+            :items=postList.posts
             :search="search"
             hide-actions
             class="elevation-1"
           >
             <template slot="items" slot-scope="props">
-              <td>{{ props.item.name }}</td>
-              <td class="text-xs-right">{{ props.item.calories }}</td>
-              <td class="text-xs-right">{{ props.item.fat }}</td>
-              <td class="text-xs-right">{{ props.item.carbs }}</td>
-              <td class="text-xs-right">{{ props.item.protein }}</td>
+              <td>{{ props.item.title }}</td>
+              <td class="text-xs-right">{{ props.item.en_title }}</td>
+              <td class="text-xs-right">{{ props.item.slug }}</td>
+              <td class="text-xs-right">{{ props.item.en_slug }}</td>
+              <td class="text-xs-right"><timeago :datetime="props.item.createdAt" :auto-update="60"></timeago></td>
+              <td class="text-xs-right"><timeago :datetime="props.item.updatedAt" :auto-update="60"></timeago></td>
+              
               <td class="justify-center layout px-0">
                 <!-- all api actions -->
                 <v-icon
@@ -88,18 +92,40 @@
                 </v-icon>
                 <v-icon
                   small
-                  @click="deleteItem(props.item)"
+                  @click="deleteItem(props.item.cuid)"
                 >
                   delete
                 </v-icon>
+                <v-tooltip bottom>
+                <v-icon v-if="props.item.status==false"
+                  small
+                  class="green--text mt-3"
+                  slot="activator"
+                  @click="submitItem(props.item.cuid)"
+                >
+                  beenhere
+                </v-icon>
+                <span>Submit Me!</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <v-icon v-if="props.item.status==true"
+                  small
+                  slot="activator"
+                  class="red--text mt-3"
+                  @click="blockItem(props.item.cuid)"
+                >
+                  block
+                </v-icon>
+                <span>Block Me!</span>
+              </v-tooltip>
               </td>
             </template>
             <v-alert slot="no-results" :value="true" color="error" icon="warning">
               Your search for "{{ search }}" found no results.
             </v-alert>
-            <template slot="no-data">
+            <!-- <template slot="no-data">
               <v-btn color="primary" @click="initialize">Reset</v-btn>
-            </template>
+            </template> -->
           </v-data-table>
       </div>
 
@@ -120,16 +146,12 @@ export default {
       alert: null,
       dialog: false,
       headers: [
-        {
-          text: 'Dessert (100g serving)',
-          align: 'left',
-          sortable: false,
-          value: 'name'
-        },
-        { text: 'Calories', value: 'calories' },
-        { text: 'Fat (g)', value: 'fat' },
-        { text: 'Carbs (g)', value: 'carbs' },
-        { text: 'Protein (g)', value: 'protein' },
+        { text: 'Title', value: 'title' },
+        { text: 'en_Title', value: 'en_title' },
+        { text: 'Slug', value: 'slug' },
+        { text: 'en_Slug', value: 'en_slug' },
+        { text: 'Created At', value: 'createdAt' },
+        { text: 'Updated At', value: 'updatedAt' },
         { text: 'Actions', value: 'name', sortable: false }
       ],
       desserts: [],
@@ -150,10 +172,18 @@ export default {
       }
    }
   },
-  computed:{
-    // fetch all posts from store before rendering the page
-    posts(){
-      
+  computed:{// recompute any changes back from store state in a run-time manner!
+    // fetch all comments from store before rendering the page
+    postList(){
+      // console.log(this.$store.state.posts.list)
+      if(this.$store.state.posts){
+        return this.$store.state.posts.list 
+      }
+      else return null
+      //  return this.$store.state.comments ? this.$store.state.comments.list : null
+    },
+    user () { 
+      return this.$store.state.auth ? this.$store.state.auth.user.username : null
     },
     formTitle () {
         return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
@@ -163,7 +193,7 @@ export default {
   // it can be called from the server-side or before navigating to the corresponding route 
   // at first we have a null state and we have to fill it on loading component so we'll use the fetch method!
     async fetch ({ store, params }) {
-        await store.dispatch('comments/fetch') // we have unhandled error for this action!
+        await store.dispatch('posts/fetch') // we have unhandled error for this action!
     },  
   watch: {
       dialog (val) {
@@ -171,94 +201,49 @@ export default {
       }
     },
   created () {
-      this.initialize()
+
   },
   methods:{
     // all inner methods and store interaction here
-    initialize () {
-        this.desserts = [
-          {
-            name: 'Frozen Yogurt',
-            calories: 159,
-            fat: 6.0,
-            carbs: 24,
-            protein: 4.0
-          },
-          {
-            name: 'Ice cream sandwich',
-            calories: 237,
-            fat: 9.0,
-            carbs: 37,
-            protein: 4.3
-          },
-          {
-            name: 'Eclair',
-            calories: 262,
-            fat: 16.0,
-            carbs: 23,
-            protein: 6.0
-          },
-          {
-            name: 'Cupcake',
-            calories: 305,
-            fat: 3.7,
-            carbs: 67,
-            protein: 4.3
-          },
-          {
-            name: 'Gingerbread',
-            calories: 356,
-            fat: 16.0,
-            carbs: 49,
-            protein: 3.9
-          },
-          {
-            name: 'Jelly bean',
-            calories: 375,
-            fat: 0.0,
-            carbs: 94,
-            protein: 0.0
-          },
-          {
-            name: 'Lollipop',
-            calories: 392,
-            fat: 0.2,
-            carbs: 98,
-            protein: 0
-          },
-          {
-            name: 'Honeycomb',
-            calories: 408,
-            fat: 3.2,
-            carbs: 87,
-            protein: 6.5
-          },
-          {
-            name: 'Donut',
-            calories: 452,
-            fat: 25.0,
-            carbs: 51,
-            protein: 4.9
-          },
-          {
-            name: 'KitKat',
-            calories: 518,
-            fat: 26.0,
-            carbs: 65,
-            protein: 7
-          }
-        ]
-      },
-
       editItem (item) {
-        this.editedIndex = this.desserts.indexOf(item)
+        this.$store.dispatch('posts/getrelatedComments', item.cuid).then((result)=>{
+            console.log(result.data.comments) // we're gonna show only comments related to a post in our dialog insdide a component
+          }).catch(error=>{ // if everythig went wrong client should call us !
+            if (error.response && error.response.data) {
+                  this.alert = {type: 'error', message: error.response.data.message || error.response.status}
+            }
+        })
+
         this.editedItem = Object.assign({}, item)
         this.dialog = true
       },
 
       deleteItem (item) {
-        const index = this.desserts.indexOf(item)
-        confirm('Are you sure you want to delete this item?') && this.desserts.splice(index, 1)
+        // const index = this.desserts.indexOf(item)
+         confirm('Are you sure you want to delete this comment?') && this.$store.dispatch('posts/deletePost', cuid).then((result)=>{
+        }).catch(error=>{
+          if (error.response && error.response.data) {
+                  this.alert = {type: 'error', message: error.response.data.message || error.response.status}
+            }
+        })
+      },
+      // submit a post
+      submitItem (cuid) {
+        this.$store.dispatch('posts/submitPost', cuid).then((result)=>{
+        }).catch(error=>{ // if everythig went wrong client should call us !
+            if (error.response && error.response.data) {
+                  this.alert = {type: 'error', message: error.response.data.message || error.response.status}
+            }
+        })
+      },
+      // block a post
+      blockItem (cuid) {
+        this.$store.dispatch('posts/blockPost', cuid).then((result)=>{
+        }).catch(error=>{ // if everythig went wrong client should call us !
+            if (error.response && error.response.data) {
+                  this.alert = {type: 'error', message: error.response.data.message || error.response.status}
+            }
+        })
       },
       close () {
         this.dialog = false
@@ -269,9 +254,9 @@ export default {
       },
 
       save () {
-        if (this.editedIndex > -1) {
+        if (this.editedIndex > -1) { // dispatch edit a post
           Object.assign(this.desserts[this.editedIndex], this.editedItem)
-        } else {
+        } else { // dispatch a new post
           this.desserts.push(this.editedItem)
         }
         this.close()
