@@ -4,20 +4,20 @@ import api from '~/api'
 
 export const state = () => ({
     list: null
-    // ,
-    // relcom: null
+    ,
+    relcom: null
 })
 
 export const mutations = {
     set_post (store, data){
         store.list = data
     },
-    // set_com (store, data){
-  //   store.relcom = data
-  // },
-  // reset_com(store){
-  //   store.relcom = null
-  // },
+    set_com (store, data){
+    store.relcom = data
+  },
+  reset_com(store){
+    store.relcom = null
+  },
     reset_post(store){
         store.list = null
     }
@@ -33,11 +33,12 @@ export const actions = {
     getrelatedComments({commit}, cuid){ // usefull in none single page mode to fetch all comments related to a post
         return api.post.getrelatedComments(cuid)
           .then(response=>{
-            // commit('set_com', response.data.post)
+            // console.log(response.data.comments)
+            commit('set_com', response.data.comments)
             return response
           })
           .catch(error=>{
-            // commit('reset_com')
+            commit('reset_com')
             return error
           })
       },
@@ -102,18 +103,17 @@ export const actions = {
             return error
           })
       },
-      // don't commit the post state ; 
-      // use the response object in client side vue 
-      // to get a single post using response object
-      // dispatch from client side only!
+      // don't commit the post state ; cause it'll overwrite the perviouse data
+      // use the response object in client side vue or use another state to store a single post in it
+      // to get a single post using response object it dispatch from client side only!
       getPost(cuid){
         return api.post.getPost(cuid)
         .then(response=>{
-        //   commit('set_post', response.data)
+          // commit('set_post', response.data)
           return response
         })
         .catch(error=>{
-        //   commit('reset_post')
+          // commit('reset_post')
           return error
         })
       }
