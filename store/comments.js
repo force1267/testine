@@ -104,7 +104,10 @@ export const actions = {
       })
   },
   // this action will load all related comments to a post_cuid for client side only!
-  // and show them using response object in your post vue
+  // and show them using response object in your post vue on client side
+  // dont commit the list state cause it'll lose the perviouse data ; u can use another state
+  // to sotre all comments related to a single post in it or u can use response object on client side 
+  // to fetch those comments.
   getAllForClient(cuid){
     return api.comment.getAllForClient(cuid)
     .then(response=>{
