@@ -15,7 +15,7 @@
 
 
     CDS-FINAL-TOUCH:
-    ENV VARIABLE FOR SERVER SECRET KEY
+    ENV VARIABLE FOR SERVER SECRET KEY ; MUST SETUP ON VPS
     support(todo) app for CDS (multi-platform jwt rest api/graphql based with video and voice call streaming feature)[create-nuxt-app(nuxtv2), nuxt-electron(use express stuff as serverMiddleware or python tornado/flask), flutter] => see wocfulab.todo for more details
     remove debuggingAPI folder or ignore it when u'r pulling the proj on vps for security reasons
     At the web server level, require SSL with a verified client certificate
@@ -24,7 +24,7 @@
     Require 2-factor authentication within the admin app itself.
     Some combination of the above.
     use a cryptographic URL to access the admin area
-    use a reverse proxy like nginx for handling rate limiting also see npmjs.com/package/express-limiter 
+    use a reverse proxy like nginx or haproxy for handling rate limiting and servig the cds app behind these proxies also see npmjs.com/package/express-limiter 
     add more feature about security in security policy section and use ur backdoor in cds to support client
     we need a vps to deploy our project on it and configure dns settings from scratch(also u can use raspi and ngrok[build smt like ngrok])
     we have to configure dns setting for existing domains
