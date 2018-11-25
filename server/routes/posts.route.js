@@ -28,7 +28,7 @@ router.get('/:cuid', (req, res) =>{
 
 // Get all comments related to a post_cuid for admin side only!
 router.get('/cmnts/admin/:cuid', (req, res) => {
-    CommentController.getrelatedComments(req, res)
+    PostController.getrelatedComments(req, res)
 })
 
 // enable a post
