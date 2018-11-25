@@ -146,11 +146,9 @@
 </template>
 
 <script>
-import RelComms from '@/components/RelComms'
 const suid = require('rand-token').suid
 const token = suid(16)
 export default {
-    components: {RelComms},
     watchQuery: ['page'],
     data(){
     // all component data here
