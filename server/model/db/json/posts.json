@@ -10,6 +10,7 @@
         "visa", 
         "canda"
     ],
+    "status" : false,
     "title" : "پست اول",
     "en_title" : "first post",
     "content" : "این خبر بسیار مهم است.",
@@ -18,7 +19,7 @@
     "en_slug" : "first-post",
     "cuid" : "cjmwbhuls0000igwbqrjh7pek",
     "createdAt" : ISODate("2018-10-05T18:02:35.456Z"),
-    "updatedAt" : ISODate("2018-10-05T18:02:35.456Z"),
+    "updatedAt" : ISODate("2018-11-25T08:16:41.589Z"),
     "__v" : 0
 }
 // post 2
@@ -35,6 +36,7 @@
         "canda", 
         "certificate"
     ],
+    "status" : true,
     "title" : "پست دوم",
     "en_title" : "second post",
     "content" : "این خبر باز به شدت مهم است",
@@ -43,6 +45,6 @@
     "en_slug" : "second-post",
     "cuid" : "cjmwbnnxm00002cwb6mpo81hc",
     "createdAt" : ISODate("2018-10-05T18:07:06.746Z"),
-    "updatedAt" : ISODate("2018-10-05T18:07:06.746Z"),
+    "updatedAt" : ISODate("2018-11-25T08:16:47.168Z"),
     "__v" : 0
 }
