@@ -2,9 +2,6 @@
   <v-layout column justify-center align-center>
     <v-flex xs12 sm8 md6> <!-- xs12 md4 => Medium screens: use 4/12 (33%) of the screen | Anything smaller(sm): 8/12 -->
             
-              <!-- also show all comments for a single post in its page => use a component 
-                   use a component to upload the cover(get help from UploadFile.vue component)
-              -->
      
       <div>
 
@@ -30,38 +27,54 @@
               <v-btn slot="activator" color="primary" dark class="mb-2">New Post</v-btn>
               <v-card>
                 <v-card-title>
-                  <span class="headline">{{formTitle}}</span>
+                  <span class="headline" v-if="formTitle == 'Edit Item'">Edit Item</span>
+                  <span class="headline" v-else>New Item</span>
                 </v-card-title>
-        
+        <!-- build another card for adding new item using v-if and editedIndex -->
                 <v-card-text>
                   <v-container grid-list-md>
                     <v-layout wrap>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.name" label="Dessert name"></v-text-field>
+                        <v-text-field v-model="editedItem.cuid" label="CUID" :disabled="ok"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.calories" label="Calories"></v-text-field>
+                        <v-text-field v-model="editedItem._id" label="ID" :disabled="ok"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.fat" label="Fat (g)"></v-text-field>
+                        <v-text-field v-model="editedItem.title" label="Title"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.carbs" label="Carbs (g)"></v-text-field>
+                        <v-text-field v-model="editedItem.en_title" label="en_Title"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <v-text-field v-model="editedItem.protein" label="Protein (g)"></v-text-field>
+                        <v-text-field v-model="editedItem.slug" label="Slug"></v-text-field>
                       </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <v-text-field v-model="editedItem.en_slug" label="en_Slug"></v-text-field>
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <!-- cover component ; get inspire from UploadFile.vue -->
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <!-- tags field -->
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <!-- en_tags field -->
+                      </v-flex>
+                      <v-flex xs12 sm6 md4>
+                        <!-- content editor -->
+                      </v-flex>
+                    </v-layout>
+                    <v-layout warp>
+                      {{ getRelComms }}
                     </v-layout>
                   </v-container>
                 </v-card-text>
-                  
-                  <!-- error handling inside card -->
-                  <v-alert v-if="alert" :type="alert.type" value="true" dismissible>{{alert.message}}</v-alert>  
                 
                 <v-card-actions>
                   <v-spacer></v-spacer>
                   <v-btn color="blue darken-1" flat @click.native="close">Cancel</v-btn>
-                  <v-btn color="blue darken-1" flat @click.native="save">Save</v-btn>
+                  <v-btn color="blue darken-1" flat @click.native="save(editedItem)">Save</v-btn>
                 </v-card-actions>
               </v-card>
             </v-dialog>
@@ -105,9 +118,7 @@
                 >
                   beenhere
                 </v-icon>
-                <span>Submit Me!</span>
-              </v-tooltip>
-              <v-tooltip bottom>
+                <span v-if="props.item.status==false">Submit Me!</span>
                 <v-icon v-if="props.item.status==true"
                   small
                   slot="activator"
@@ -116,7 +127,7 @@
                 >
                   block
                 </v-icon>
-                <span>Block Me!</span>
+                <span v-if="props.item.status==true">Block Me!</span>
               </v-tooltip>
               </td>
             </template>
@@ -135,16 +146,20 @@
 </template>
 
 <script>
+import RelComms from '@/components/RelComms'
 const suid = require('rand-token').suid
 const token = suid(16)
 export default {
+    components: {RelComms},
     watchQuery: ['page'],
     data(){
     // all component data here
      return {
       search: '',
+      ok: true,
       alert: null,
       dialog: false,
+      getRelComms: null,
       headers: [
         { text: 'Title', value: 'title' },
         { text: 'en_Title', value: 'en_title' },
@@ -154,33 +169,30 @@ export default {
         { text: 'Updated At', value: 'updatedAt' },
         { text: 'Actions', value: 'name', sortable: false }
       ],
-      desserts: [],
+      postCUID: '',    
       editedIndex: -1,
       editedItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
-      },
-      defaultItem: {
-        name: '',
-        calories: 0,
-        fat: 0,
-        carbs: 0,
-        protein: 0
+        cuid:'',
+        _id:'',
+        title: '',
+        en_title: '',
+        slug: '',
+        en_slug: '',
+        cover:'',
+        tags: null,
+        en_tags: null,
+        content: ''
       }
    }
   },
   computed:{// recompute any changes back from store state in a run-time manner!
-    // fetch all comments from store before rendering the page
+    // fetch all posts from store before rendering the page
     postList(){
       // console.log(this.$store.state.posts.list)
       if(this.$store.state.posts){
         return this.$store.state.posts.list 
       }
       else return null
-      //  return this.$store.state.comments ? this.$store.state.comments.list : null
     },
     user () { 
       return this.$store.state.auth ? this.$store.state.auth.user.username : null
@@ -206,21 +218,25 @@ export default {
   methods:{
     // all inner methods and store interaction here
       editItem (item) {
+        // we're dispatching the getrelatedComments api to fill our getRelComms data variable
+        // every time we hit the edit button for a specific post
         this.$store.dispatch('posts/getrelatedComments', item.cuid).then((result)=>{
-            console.log(result.data.comments) // we're gonna show only comments related to a post in our dialog insdide a component
-          }).catch(error=>{ // if everythig went wrong client should call us !
-            if (error.response && error.response.data) {
+           this.getRelComms = result.data
+        }).catch(error=>{
+          if (error.response && error.response.data) {
                   this.alert = {type: 'error', message: error.response.data.message || error.response.status}
             }
         })
-
+        this.postCUID = item.cuid
         this.editedItem = Object.assign({}, item)
         this.dialog = true
+        this.editedIndex = 0
       },
 
       deleteItem (item) {
         // const index = this.desserts.indexOf(item)
-         confirm('Are you sure you want to delete this comment?') && this.$store.dispatch('posts/deletePost', cuid).then((result)=>{
+         confirm('Are you sure you want to delete this post?') && this.$store.dispatch('posts/deletePost', cuid).then((result)=>{
+           // TODO: do something with result object
         }).catch(error=>{
           if (error.response && error.response.data) {
                   this.alert = {type: 'error', message: error.response.data.message || error.response.status}
@@ -247,18 +263,33 @@ export default {
       },
       close () {
         this.dialog = false
-        setTimeout(() => {
-          this.editedItem = Object.assign({}, this.defaultItem)
           this.editedIndex = -1
-        }, 300)
+        // setTimeout(() => {
+        //   this.editedItem = Object.assign({}, this.defaultItem)
+        // }, 300)
       },
 
-      save () {
+      save (item) {
         if (this.editedIndex > -1) { // dispatch edit a post
-          Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          // Object.assign(this.desserts[this.editedIndex], this.editedItem)
+          this.$store.dispatch('posts/updatePost', item).then((result)=>{
+            // TODO: do something with result object
+          }).catch(error=>{ // if everythig went wrong client should call us !
+            if (error.response && error.response.data) {
+                  this.alert = {type: 'error', message: error.response.data.message || error.response.status}
+            }
+         })
         } else { // dispatch a new post
-          this.desserts.push(this.editedItem)
+          // this.desserts.push(this.editedItem)
+          this.$store.dispatch('posts/addPost', item).then((result)=>{
+            // TODO: do something with result object
+          }).catch(error=>{ // if everythig went wrong client should call us !
+            if (error.response && error.response.data) {
+                  this.alert = {type: 'error', message: error.response.data.message || error.response.status}
+            }
+         })
         }
+        // close the dialog
         this.close()
       }
   },
