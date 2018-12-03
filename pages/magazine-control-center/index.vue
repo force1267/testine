@@ -244,6 +244,7 @@ export default {
       // submit a post
       submitItem (cuid) {
         this.$store.dispatch('posts/submitPost', cuid).then((result)=>{
+          // we can handle block icon here!!
         }).catch(error=>{ // if everythig went wrong client should call us !
             if (error.response && error.response.data) {
                   this.alert = {type: 'error', message: error.response.data.message || error.response.status}
@@ -253,6 +254,7 @@ export default {
       // block a post
       blockItem (cuid) {
         this.$store.dispatch('posts/blockPost', cuid).then((result)=>{
+          // we can handle submit icon here!!
         }).catch(error=>{ // if everythig went wrong client should call us !
             if (error.response && error.response.data) {
                   this.alert = {type: 'error', message: error.response.data.message || error.response.status}
