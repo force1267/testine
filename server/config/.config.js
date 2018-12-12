@@ -10,6 +10,6 @@ module.exports = {
     MONGO_USER: "",
     MONGO_PASS: "",
     HOST: "127.0.0.1",
-    PORT: 3000
+    PORT: process.env.PORT
     
 }

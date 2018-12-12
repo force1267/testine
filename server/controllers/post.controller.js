@@ -179,7 +179,7 @@ PostController.blockPost = async (req, res) => {
             }
         })
     }
-    catch{
+    catch (err){
         return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
     }
 }
@@ -206,7 +206,7 @@ PostController.submitPost = async(req, res) =>{
             }
         })
     }
-    catch{
+    catch(err){
         return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
     }
 }

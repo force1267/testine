@@ -15,9 +15,9 @@ var disconnected = chalk.bold.red
 var termination = chalk.bold.magenta
 
 exports.connect = function(){
-        mongoose.connect('mongodb://' + cfg.MONGO_HOST + ':' + cfg.MONGO_PORT + '/' + cfg.MONGO_DATABASE, {
-        user: cfg.MONGO_USER,
-        pass: cfg.MONGO_PASS,
+        mongoose.connect("mongodb://cluster0-shard-00-00-ph4su.mongodb.net:27017,cluster0-shard-00-01-ph4su.mongodb.net:27017,cluster0-shard-00-02-ph4su.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin&retryWrites=true", {
+        user: "force",
+        pass: "12672551",
         useNewUrlParser: true
       })
       

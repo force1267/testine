@@ -172,7 +172,7 @@ CommentController.blockComment = async (req, res) => {
             }
         })
     }
-    catch{
+    catch(err){
         return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
     }
 }
@@ -199,7 +199,7 @@ CommentController.submitComment = async(req, res) =>{
             }
         })
     }
-    catch{
+    catch(err){
         return res.json({err, message: 'Sorry! Server Erorr, Try Again.', type:'error'})
     }
 

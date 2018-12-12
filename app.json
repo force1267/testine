@@ -1,0 +1,5 @@
+{
+  "name": "CDS",
+  "keywords": ["node", "express", "nuxt", "heroku"],
+  "image": "heroku/nodejs"
+}
