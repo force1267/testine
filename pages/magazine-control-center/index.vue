@@ -53,7 +53,7 @@
                         <v-text-field v-model="editedItem.en_slug" label="en_Slug"></v-text-field>
                       </v-flex>
                       <v-flex xs12 sm6 md4>
-                        <!-- cover component ; get inspire from UploadFile.vue -->
+                        <!-- cover component ; get inspiration from UploadFile.vue -->
                       </v-flex>
                       <v-flex xs12 sm6 md4>
                         <!-- tags field -->
