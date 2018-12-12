@@ -4,11 +4,11 @@
   "description": "study abroad and student consultancy institute",
   "author": "woshi",
   "private": true,
-  "scripts": {
-     "dev": "nuxt",
-     "build": "nuxt build",
-     "start": "nuxt start",
-     "heroku-postbuild": "npm run build"
+	"scripts": {
+		"dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server"
+		"build": "nuxt build",
+		"start": "cross-env NODE_ENV=production node server/index.js",
+		"generate": "nuxt generate"
 	},
   "dependencies": {
     "axios": "^0.18.0",
